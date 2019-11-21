@@ -7,15 +7,17 @@ function Square(props) {
     <button className="square" onClick={props.onClick}>
       {props.value}
     </button>
-  )
+  );
 }
+
+//this is a comment
 
 class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
-      xIsNext: true
+      xIsNext: true,
     };
   }
 
