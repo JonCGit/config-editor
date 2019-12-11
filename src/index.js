@@ -1,110 +1,84 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import ConfigJson from './config.json';
 
-function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
-}
-
-//this is a comment
-
-class Board extends React.Component {
+class EnvSearch extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
+      environments: ['Test', 'Prod', 'QA'],
     };
   }
 
-  handleClick(i) {
-    const squares = this.state.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({ squares, xIsNext: !this.state.xIsNext });
-  }
+  render() {
+    let envOpts = [<option value='0' label='Choose an environment...' />];
+    ConfigJson.map((env, i) => {
+      envOpts.push(<option value={i + 1} label={env.name} />);
+    });
 
-  renderSquare(i) {
-    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
+    return <select>{envOpts}</select>;
+  }
+}
+
+class EnvWindow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      configbody: '',
+    };
   }
 
   render() {
-    const winner = calculateWinner(this.state.squares);
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-
     return (
-      <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+      <div className="env-display">
+        <div>Yo dawg this is text with a dropdown picker above it</div>
+        <div>This box gon' be the environment window with the config 'n' all that</div>
+      </div>
+
+      // <div>{ConfigJson.map((env, index) => {
+      //   return <div>{env.config.location_id}</div>;
+      // })}</div>
+    );
+  }
+}
+
+class FeatFlagWindow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="env-display">
+        <div>This text is over here on the right</div>
+        <div>This is more text on the right</div>
+        <div>Pay no attention to the lack of actual content here</div>
       </div>
     );
   }
 }
 
-class Game extends React.Component {
+class Page extends React.Component {
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board />
-        </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
+      <div className="page">
+        <EnvSearch />
+        <div className="row">
+          <div className="env-window">
+            <EnvWindow />
+          </div>
+          <div className="env-window">
+            <FeatFlagWindow />
+          </div>
         </div>
       </div>
     );
   }
 }
-
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
-
-// ========================================
 
 ReactDOM.render(
-  <Game />,
+  <Page />,
   document.getElementById('root')
 );
