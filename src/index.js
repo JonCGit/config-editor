@@ -5,19 +5,25 @@ import ConfigJson from './config.json';
 
 class EnvSearch extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      environments: ['Test', 'Prod', 'QA'],
+      env: '',
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.props.handleEnvChange(event.target.value);
+    this.setState({ env: event.target.value });
   }
 
   render() {
-    let envOpts = [<option value='0' label='Choose an environment...' />];
-    ConfigJson.map((env, i) => {
-      envOpts.push(<option value={i + 1} label={env.name} />);
-    });
+    let envOpts = [<option value='' key='0' label='Choose an environment...' />];
+    envOpts.push(ConfigJson.map((env, i) =>
+      <option value={env.name.toLowerCase()} key={i + 1} label={env.name} />
+    ));
 
-    return <select>{envOpts}</select>;
+    return <select value={this.state.env} onChange={this.handleChange}>{envOpts}</select>;
   }
 }
 
@@ -32,8 +38,8 @@ class EnvWindow extends React.Component {
   render() {
     return (
       <div className="env-display">
-        <div>Yo dawg this is text with a dropdown picker above it</div>
-        <div>This box gon' be the environment window with the config 'n' all that</div>
+        <div>Below this line of text will be the config displayed in some capacity</div>
+        <div>{this.props.env}</div>
       </div>
 
       // <div>{ConfigJson.map((env, index) => {
@@ -61,16 +67,27 @@ class FeatFlagWindow extends React.Component {
 }
 
 class Page extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      env: '',
+    };
+  }
+
   render() {
+    const handleEnvChange = input => {
+      this.setState({ env: input });
+    };
+
     return (
       <div className="page">
-        <EnvSearch />
+        <EnvSearch handleEnvChange={handleEnvChange} />
         <div className="row">
           <div className="env-window">
-            <EnvWindow />
+            <EnvWindow env={this.state.env} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow />
+            <FeatFlagWindow env={this.state.env} />
           </div>
         </div>
       </div>
