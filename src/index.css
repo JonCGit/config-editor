@@ -7,13 +7,30 @@ ol, ul {
   padding-left: 30px;
 }
 
-.env-display {
+.feature-display {
   border: 3px solid #999;
   padding: 2px;
 }
 
+.feature-display > div {
+  padding: 5px;
+}
+
+.env-display {
+  border: 3px solid #999;
+  padding: 2px;
+  width: 500px;
+}
+
 .env-display > div {
   padding: 5px;
+}
+
+.env-window-name {
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: underline;
+  font-family: serif;
 }
 
 .env-window {
