@@ -100,12 +100,44 @@ class FeatFlagWindow extends React.Component {
     this.state = {};
   }
 
+  togglePopup() {
+    this.setState({
+        showPopup: !this.state.showPopup
+    });
+  }
+
   render() {
     return (
-      <div className="env-display">
-        <div>This text is over here on the right</div>
-        <div>This is more text on the right</div>
-        <div>Pay no attention to the lack of actual content here</div>
+      <div>
+        {this.state.showPopup ?
+            <PopUp
+                text='Close Me'
+                closePopup={this.togglePopup.bind(this)}
+            />
+            : null
+        }
+        <div className = "selected-container">
+          <h2 className="title">Feature Flag</h2>
+          <h4 className="inner-title">Values</h4>
+          <div className="button-container">
+            <button className="button" onClick={this.togglePopup.bind(this)}>Add</button>
+            <button className="button">Edit</button>
+            <button className="button">Remove</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class PopUp extends React.Component {
+  render() {
+    return (
+      <div className='popup'>
+        <div className='popup_inner'>
+          <h1>{this.props.text}</h1>
+          <button onClick={this.props.closePopup}>close me</button>
+        </div>
       </div>
     );
   }
