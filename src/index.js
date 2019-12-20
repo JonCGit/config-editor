@@ -47,12 +47,12 @@ class EnvWindow extends React.Component {
 
       envWindowBody = [<h4>Config groups:</h4>];
       envWindowBody.push(envJSON.configGroups.map((cg, i) =>
-        <div>{cg.groupName}</div>
+        <div className='group'>{cg.groupName}</div>
       ));
     }
 
     return (
-      <div className="env-display">
+      <div className='env-display'>
         <div>Below this line of text,the config will be displayed in some capacity.</div>
         {envWindowBody}
       </div>
@@ -68,7 +68,7 @@ class FeatFlagWindow extends React.Component {
 
   render() {
     return (
-      <div className="env-display">
+      <div className='env-display'>
         <div>This text is over here on the right</div>
         <div>This is more text on the right</div>
         <div>Pay no attention to the lack of actual content here</div>
@@ -91,13 +91,13 @@ class Page extends React.Component {
     };
 
     return (
-      <div className="page">
+      <div className='page'>
         <EnvSearch handleEnvChange={handleEnvChange} />
-        <div className="row">
-          <div className="env-window">
+        <div className='row'>
+          <div className='env-window'>
             <EnvWindow env={this.state.env} />
           </div>
-          <div className="env-window">
+          <div className='env-window'>
             <FeatFlagWindow env={this.state.env} />
           </div>
         </div>
