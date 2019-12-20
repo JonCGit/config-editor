@@ -61,10 +61,7 @@
             "configItemId":"crn.globalEnabledCurbside"
           },
           {
-            "configValue":[
-              "00070",
-              "03662"
-            ],
+            "configValue":["00070","03662"],
             "configType":"locationList",
             "configItemId":"crn.curbsideOverrideLocations"
           }
@@ -79,10 +76,7 @@
             "configItemId":"crn.errorTitle"
           },
           {
-            "configValue":[
-              "600",
-              "1378"
-            ],
+            "configValue":["600","1378"],
             "configType":"errorCodeList",
             "configItemId":"crn.errorCodes"
           },
