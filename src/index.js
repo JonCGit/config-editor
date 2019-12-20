@@ -36,15 +36,26 @@ class EnvWindow extends React.Component {
   }
 
   render() {
+    var envWindowBody;
+    let env = this.props.env;
+    if (env === '') {
+      envWindowBody = <h4>No config to display.</h4>;
+    } else {
+      let envJSON = ConfigJson.filter(function (el) {
+        return el.name.toLowerCase() === env;
+      })[0];
+
+      envWindowBody = [<h4>Config groups:</h4>];
+      envWindowBody.push(envJSON.configGroups.map((cg, i) =>
+        <div>{cg.groupName}</div>
+      ));
+    }
+
     return (
       <div className="env-display">
-        <div>Below this line of text will be the config displayed in some capacity</div>
-        <div>{this.props.env}</div>
+        <div>Below this line of text,the config will be displayed in some capacity.</div>
+        {envWindowBody}
       </div>
-
-      // <div>{ConfigJson.map((env, index) => {
-      //   return <div>{env.config.location_id}</div>;
-      // })}</div>
     );
   }
 }
