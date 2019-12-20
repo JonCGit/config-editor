@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "react-bootstrap": "^0.33.0",
-    "react-data-table-component": "^6.0.0",
+    "react-data-table-component": "^6.0.3",
     "react-scripts": "^3.3.0",
     "styled-components": "^4.4.1"
   },

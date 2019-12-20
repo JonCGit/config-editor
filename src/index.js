@@ -8,8 +8,8 @@ const columns = [
   {
     name: 'Config Id',
     selector: 'configItemId',
-    sortable: false
-  }
+    sortable: false,
+  },
 ];
 
 const customStyles = {
@@ -53,13 +53,13 @@ class EnvSearch extends React.Component {
   }
 
   render() {
-    return <select onChange={this.handleChange}>
-             {ConfigJson.map((env, index) =>
-               <option key={index} value={index}>
-                 {env.name}
-               </option>
-             )}
-           </select>
+    return (
+      <select onChange={this.handleChange}>
+        {ConfigJson.map((env, index) =>
+          <option key={index} value={index}>{env.name}</option>
+        )}
+      </select>
+    );
   }
 }
 
@@ -102,7 +102,7 @@ class FeatFlagWindow extends React.Component {
 
   togglePopup() {
     this.setState({
-        showPopup: !this.state.showPopup
+      showPopup: !this.state.showPopup,
     });
   }
 
@@ -117,7 +117,7 @@ class FeatFlagWindow extends React.Component {
             : null
         }
         <div className = "selected-container">
-          <h2 className="title">Feature Flag</h2>
+        <h2 className="title">Feature Flag</h2>
           <h4 className="inner-title">Values</h4>
           <div className="button-container">
             <button className="button" onClick={this.togglePopup.bind(this)}>Add</button>
