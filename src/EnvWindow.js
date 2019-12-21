@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import DataTable from 'react-data-table-component';
 import './index.css';
 import ConfigJson from './config.json';
+import FeatFlagWindow from "./FeatFlagWindow";
 
 const columns = [
   {
@@ -40,6 +41,15 @@ const customStyles = {
 class EnvWindow extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props, 'from env win');
+    this.state = {
+        selected: {}
+      };
+    this.handleFeatFlagChange = this.handleFeatFlagChange.bind(this);
+  }
+
+  handleFeatFlagChange(value) {
+    this.props.handleFeatFlagChange(value);
   }
 
   render() {
@@ -57,6 +67,8 @@ class EnvWindow extends React.Component {
                 defaultSortField="configItemId"
                 highlightOnHover
                 pointerOnHover
+                onRowClicked={this.handleFeatFlagChange}
+                onSelectedRowsChange={this.handleFeatFlagChange}
               />
             )}
           </div>

@@ -8,6 +8,7 @@ import PopUp from './PopUp.js';
 class FeatFlagWindow extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props, 'props');
     this.state = {};
   }
 

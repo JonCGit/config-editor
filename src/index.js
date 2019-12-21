@@ -11,13 +11,18 @@ class Page extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      env: ConfigJson[0],
+      env: ConfigJson[0]
     };
   }
 
+   handleFeatFlagChange = value => {
+      console.log(value, 'selected Env');
+      this.setState({ evn: value });
+  };
+
   render() {
     const handleEnvChange = input => {
-      console.log(input, 'selected Env');
+      console.log(input, 'selected Env 100');
       this.setState({ env: input });
     };
 
@@ -26,10 +31,10 @@ class Page extends React.Component {
         <EnvSearch handleEnvChange={handleEnvChange} />
         <div className="row">
           <div className="env-window">
-            <EnvWindow env={this.state.env} />
+            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow env={this.state.env} />
+            <FeatFlagWindow selected={this.state}/>
           </div>
         </div>
       </div>
