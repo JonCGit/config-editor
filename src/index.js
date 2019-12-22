@@ -9,32 +9,35 @@ import FeatFlagWindow from './FeatFlagWindow.js';
 
 class Page extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      env: ConfigJson[0]
+      env: ConfigJson[0],
+      selectedConfig: {
+        configValue: null
+      }
     };
   }
 
-   handleFeatFlagChange = value => {
-      console.log(value, 'selected Env');
-      this.setState({ evn: value });
+  handleFeatFlagChange = value => {
+    console.log(value, 'Selected config');
+    this.setState({ selectedConfig: value });
+  };
+
+  handleEnvChange = input => {
+    console.log(input, 'selected Env 100');
+    this.setState({ env: input });
   };
 
   render() {
-    const handleEnvChange = input => {
-      console.log(input, 'selected Env 100');
-      this.setState({ env: input });
-    };
-
     return (
       <div className="page">
-        <EnvSearch handleEnvChange={handleEnvChange} />
+        <EnvSearch handleEnvChange={this.handleEnvChange} />
         <div className="row">
           <div className="env-window">
             <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow selected={this.state}/>
+            <FeatFlagWindow selectedConfig={this.state.selectedConfig}/>
           </div>
         </div>
       </div>

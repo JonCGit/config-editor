@@ -38,13 +38,10 @@ const customStyles = {
   },
 };
 
+// TODO: make this a function component
 class EnvWindow extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props, 'from env win');
-    this.state = {
-        selected: {}
-      };
     this.handleFeatFlagChange = this.handleFeatFlagChange.bind(this);
   }
 

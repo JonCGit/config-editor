@@ -8,7 +8,6 @@ import PopUp from './PopUp.js';
 class FeatFlagWindow extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props, 'props');
     this.state = {};
   }
 
@@ -28,6 +27,7 @@ class FeatFlagWindow extends React.Component {
         <div className = "selected-container">
         <h2 className="title">Feature Flag</h2>
         <h4 className="inner-title">Values</h4>
+        <div>{this.props.selectedConfig.configValue}</div>
         <div className="button-container">
           <button className="button" onClick={this.togglePopup.bind(this)}>Add</button>
           <button className="button">Edit</button>
