@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import DataTable from 'react-data-table-component';
 import './index.css';
 import ConfigJson from './config.json';
-import FeatFlagWindow from "./FeatFlagWindow";
+import FeatFlagWindow from './FeatFlagWindow';
 
 const columns = [
   {

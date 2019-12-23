@@ -13,8 +13,8 @@ class Page extends React.Component {
     this.state = {
       env: ConfigJson[0],
       selectedConfig: {
-        configValue: null
-      }
+        configValue: null,
+      },
     };
   }
 
