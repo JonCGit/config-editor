@@ -1,50 +1,90 @@
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
 }
 
 ol, ul {
-    padding-left: 30px;
+  padding-left: 30px;
 }
 
-.board-row:after {
-    clear: both;
-    content: "";
-    display: table;
+.feature-display {
+  border: 3px solid #999;
+  padding: 2px;
 }
 
-.status {
-    margin-bottom: 10px;
+.feature-display > div {
+  padding: 5px;
 }
 
-.square {
-    background: #fff;
-    border: 1px solid #999;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
+.env-display {
+  border: 3px solid #999;
+  padding: 2px;
+  width: 500px;
 }
 
-.square:focus {
-    outline: none;
+.env-display > div {
+  padding: 5px;
 }
 
-.kbd-navigation .square:focus {
-    background: #ddd;
+.env-window-name {
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: underline;
+  font-family: serif;
 }
 
-.game {
-    display: flex;
-    flex-direction: row;
+.env-window {
+  padding: 5px;
 }
 
-.game-info {
-    margin-left: 20px;
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.selected-container {
+  width: 500px;
+  height: 500px;
+  border: 3px solid #999;
+  right: 875px;
+}
+
+.title {
+  padding: 10px;
+  border-bottom: 1px dotted;
+}
+
+.inner-title {
+  text-align: center;
+}
+
+.button-container {
+  padding: 285px 20px 0 20px;
+}
+
+.button {
+  width: 128px;
+  padding: 10px;
+  margin: 11px;
+  font-size: 15px;
+}
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0,0,0, 0.5);
+}
+.popup_inner {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 25%;
+  bottom: 25%;
+  margin: auto;
+  background: white;
 }
