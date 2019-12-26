@@ -6,6 +6,7 @@ import ConfigJson from './config.json';
 import EnvSearch from './EnvSearch.js';
 import EnvWindow from './EnvWindow.js';
 import FeatFlagWindow from './FeatFlagWindow.js';
+import GitHub from 'github-api';
 
 class Page extends React.Component {
   constructor(props) {
@@ -16,6 +17,13 @@ class Page extends React.Component {
         configValue: null
       }
     };
+
+    const gh = new GitHub();
+    const repo = gh.getRepo('JonCGit', 'config-project');
+
+    repo.getContents('qa', 'config.json', false, (err, contents) => {
+      console.log(contents, 'branch data');
+    });
   }
 
   handleFeatFlagChange = value => {
