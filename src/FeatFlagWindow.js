@@ -10,7 +10,7 @@ class FeatFlagWindow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        value: ''
+      value: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -23,23 +23,21 @@ class FeatFlagWindow extends React.Component {
 
   handleChange(changeEvent) {
     this.setState({
-      value: changeEvent.target.value
+      value: changeEvent.target.value,
     });
   }
 
   renderSwitch() {
     const arrayOrString = this.props.selectedConfig.configValue;
     if (Array.isArray(arrayOrString)) {
-      return this.props.selectedConfig.configValue.map(options => {
-        return (
-          <FormControlLabel
-            key={options}
-            value={options}
-            control={<Radio color="primary" />}
-            label={options}
-          />
-        )
-      });
+      return this.props.selectedConfig.configValue.map(options =>
+        <FormControlLabel
+          key={options}
+          value={options}
+          control={<Radio color="primary" />}
+          label={options}
+        />
+      );
     } else {
       return (
         <FormControlLabel
