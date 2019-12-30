@@ -67,7 +67,7 @@ class FeatFlagWindow extends React.Component {
           <PopUp value={this.state.value} closePopup={this.togglePopup.bind(this)}/>
           : null
         }
-        <div className = "selected-container">
+        <div className="selected-container">
         <h2 className="title">Feature Flag</h2>
         <h4 className="inner-title">Values</h4>
         <div className="value-container">
