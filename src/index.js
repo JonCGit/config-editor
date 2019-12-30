@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DataTable from 'react-data-table-component';
 import './index.css';
 import ConfigJson from './config.json';
 import EnvSearch from './EnvSearch.js';
@@ -16,6 +15,7 @@ class Page extends React.Component {
         configValue: null,
       },
     };
+    this.featFlagCallback = this.featFlagCallback.bind(this);
   }
 
   handleFeatFlagChange = value => {
@@ -28,6 +28,24 @@ class Page extends React.Component {
     this.setState({ env: input });
   };
 
+  featFlagCallback(newConfig, oldValue) {
+    if(oldValue) {
+      this.setState((prevState) => {
+        const indexOfOldValue = prevState.selectedConfig.configValue.indexOf(oldValue);
+        prevState.selectedConfig.configValue.splice(indexOfOldValue, 1);
+        return {
+          selectedConfig: prevState.selectedConfig.configValue.push(newConfig)
+        }
+      });
+    } else {
+      this.setState((prevState) => {
+        return {
+          selectedConfig: prevState.selectedConfig.configValue.push(newConfig)
+        }
+      });
+    }
+  }
+
   render() {
     return (
       <div className="page">
@@ -37,7 +55,7 @@ class Page extends React.Component {
             <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow selectedConfig={this.state.selectedConfig}/>
+            <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback} selectedConfig={this.state.selectedConfig}/>
           </div>
         </div>
       </div>
