@@ -29,20 +29,18 @@ class Page extends React.Component {
   };
 
   featFlagCallback(newConfig, oldValue) {
-    if(oldValue) {
+    if (oldValue) {
       this.setState((prevState) => {
         const indexOfOldValue = prevState.selectedConfig.configValue.indexOf(oldValue);
         prevState.selectedConfig.configValue.splice(indexOfOldValue, 1);
         return {
-          selectedConfig: prevState.selectedConfig.configValue.push(newConfig)
-        }
+          selectedConfig: prevState.selectedConfig.configValue.push(newConfig),
+        };
       });
     } else {
-      this.setState((prevState) => {
-        return {
-          selectedConfig: prevState.selectedConfig.configValue.push(newConfig)
-        }
-      });
+      this.setState((prevState) =>
+        ({ selectedConfig: prevState.selectedConfig.configValue.push(newConfig), })
+      );
     }
   }
 
@@ -55,7 +53,10 @@ class Page extends React.Component {
             <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback} selectedConfig={this.state.selectedConfig}/>
+            <FeatFlagWindow
+              callbackFromFeatFlag={this.featFlagCallback}
+              selectedConfig={this.state.selectedConfig}
+            />
           </div>
         </div>
       </div>
