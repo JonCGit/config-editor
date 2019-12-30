@@ -10,6 +10,7 @@ ol, ul {
 .feature-display {
   border: 3px solid #999;
   border-radius: 25px;
+  /* background-color: #DD0031; */
   padding: 2px;
 }
 

@@ -53,22 +53,22 @@ class EnvWindow extends React.Component {
     return (
       <div className="env-display">
         <div className="env-window-name">{this.props.env.name}</div>
-          <div>
-            {this.props.env.configGroups.map((group, index) =>
-              <DataTable
-                key={index}
-                title={group.groupName}
-                columns={columns}
-                data={group.configs}
-                customStyles={customStyles}
-                defaultSortField="configItemId"
-                highlightOnHover
-                pointerOnHover
-                onRowClicked={this.handleFeatFlagChange}
-                onSelectedRowsChange={this.handleFeatFlagChange}
-              />
-            )}
-          </div>
+        <div className="env-window-body">
+          {this.props.env.configGroups.map((group, index) =>
+            <DataTable
+              key={index}
+              title={group.groupName}
+              columns={columns}
+              data={group.configs}
+              customStyles={customStyles}
+              defaultSortField="configItemId"
+              highlightOnHover
+              pointerOnHover
+              onRowClicked={this.handleFeatFlagChange}
+              onSelectedRowsChange={this.handleFeatFlagChange}
+            />
+          )}
+        </div>
       </div>
     );
   }
