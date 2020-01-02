@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import { IoIosClose } from 'react-icons/io';
 
-class PopUp extends React.Component {
+class CommitMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
