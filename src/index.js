@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DataTable from 'react-data-table-component';
 import './index.css';
-import ConfigJson from './config.json';
 import EnvSearch from './EnvSearch.js';
 import EnvWindow from './EnvWindow.js';
 import FeatFlagWindow from './FeatFlagWindow.js';
@@ -12,17 +10,23 @@ class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      env: ConfigJson[0],
+      repository: null,
+      env: null,
       selectedConfig: {
         configValue: null
-      }
+      },
+      loading: true
     };
 
     const gh = new GitHub();
     const repo = gh.getRepo('JonCGit', 'config-project');
 
-    repo.getContents('qa', 'config.json', false, (err, contents) => {
-      console.log(contents, 'branch data');
+    repo.getContents('development', 'config.json', false, (err, contents) => {
+      this.setState({
+        repository: repo,
+        env: JSON.parse(atob(contents.content)),
+        loading: false
+      });
     });
   }
 
@@ -32,8 +36,14 @@ class Page extends React.Component {
   };
 
   handleEnvChange = input => {
-    console.log(input, 'selected Env 100');
-    this.setState({ env: input });
+    console.log(input.name, 'Selected Env');
+    this.setState({ loading: true });
+    this.state.repository.getContents(input.name.toLowerCase(), 'config.json', false, (err, contents) => {
+      this.setState({
+        env: JSON.parse(atob(contents.content)),
+        loading: false
+      });
+    });
   };
 
   render() {
@@ -42,7 +52,7 @@ class Page extends React.Component {
         <EnvSearch handleEnvChange={this.handleEnvChange} />
         <div className="row">
           <div className="env-window">
-            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} />
+            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} loading={this.state.loading} />
           </div>
           <div className="env-window">
             <FeatFlagWindow selectedConfig={this.state.selectedConfig}/>
