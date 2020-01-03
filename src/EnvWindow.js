@@ -52,7 +52,7 @@ class EnvWindow extends React.Component {
   render() {
     return (
       <div className="env-display">
-        <div className="env-window-name">{this.props.env.name}</div>
+        <div className="title env-window-name">{this.props.env.name}</div>
         <div className="env-window-body">
           {this.props.env.configGroups.map((group, index) =>
             <DataTable

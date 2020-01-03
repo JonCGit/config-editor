@@ -1,5 +1,5 @@
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
+  font: 14px "Apercu", Futura, sans-serif;
   margin: 20px;
 }
 
@@ -12,32 +12,34 @@ ol, ul {
 }
 
 .env-display, .feature-display {
-  border: 3px solid #999;
+  border: 5px solid #DD0031;
   border-radius: 25px;
-  background-color: #DD0031;
+  /* background-color: #DD0031; */
   padding: 2px;
   min-width: 500px;
 }
 
 .env-window-name {
-  padding-left: 10px;
+  padding: 0px 0px 5px 10px;
   font-size: 30px;
-  font-weight: bold;
-  color: white;
-  text-decoration: underline;
-  font-family: sans-serif;
+  /* color: white; */
+  color: #DD0031;
+  font-family: Apercu, Futura, sans-serif;
 }
 
 .env-window, .env-window-body {
   padding: 5px;
 }
 
-.env-window-body > div > * {
-  background-color: #F5E3CC;
+.env-window-body > div {
+  border-radius: 25px;
+  background-color: white;
 }
 
-.env-window-body > div > div > * {
-  background-color: #004F71;
+.env-window-body > div > header {
+  /* background-color: #F5E3CC; */
+  text-decoration: underline;
+  color: #5B6770;
 }
 
 .row {
@@ -46,41 +48,48 @@ ol, ul {
 }
 
 .selected-container {
-  width: 500px;
-  height: 500px;
-  /* border: 3px solid #999; */
+  padding-top: 10px;
+  min-width: 500px;
   right: 875px;
 }
 
 .title {
   padding: 10px;
-  border-bottom: 1px dotted;
+  border-bottom: 5px dotted #DD0031;
 }
 
 .inner-title {
   text-align: center;
   font-weight: bold;
   color: white;
-  text-decoration: underline;
-  font-family: sans-serif;
+  /* text-decoration: underline; */
+  font-family: Apercu, Futura, sans-serif;
+}
+
+.containers {
+  background-color: white;
+  border-radius: 25px;
 }
 
 .button-container {
-  padding: 40px 20px 0 20px;
+  padding: 10px;
 }
 
 .value-container {
-  background-color: white;
   height: 260px;
   padding-left: 15px;
   overflow: scroll;
 }
 
 .button {
+  border: 3px solid #5B6770;
+  border-radius: 25px;
   width: 128px;
   padding: 10px;
   margin: 11px;
   font-size: 15px;
+  background-color: white;
+  color: #5B6770;
 }
 .popup {
   position: absolute;

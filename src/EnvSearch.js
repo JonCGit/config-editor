@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import DataTable from 'react-data-table-component';
 import './index.css';
 import ConfigJson from './config.json';
+import PropTypes from 'prop-types';
+import Img from 'react-image';
 
 class EnvSearch extends React.Component {
   constructor(props) {
@@ -19,12 +21,19 @@ class EnvSearch extends React.Component {
   }
 
   render() {
+    const logo = () =>
+      <Img src="CFA_CSymbols/CFA_CSymbol_Circle_Red_PMS.png" />;
     return (
-      <select onChange={this.handleChange}>
-        {ConfigJson.map((env, index) =>
-          <option key={index} value={index}>{env.name}</option>
-        )}
-      </select>
+      <div className="row">
+        <div><Img src="CFA_CSymbols/CFA_CSymbol_Circle_Red_PMS.png" /></div>
+        <div>
+          <select onChange={this.handleChange}>
+            {ConfigJson.map((env, index) =>
+              <option key={index} value={index}>{env.name}</option>
+            )}
+          </select>
+        </div>
+      </div>
     );
   }
 }
