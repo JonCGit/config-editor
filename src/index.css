@@ -1,5 +1,5 @@
 body {
-  font: 14px "Apercu", Futura, sans-serif;
+  font: 14px Apercu, Futura, sans-serif;
   margin: 20px;
 }
 
@@ -7,37 +7,25 @@ ol, ul {
   padding-left: 30px;
 }
 
-.feature-display > div {
+.env-window, .env-display > div, .feature-display > div {
   padding: 5px;
 }
 
-.env-display, .feature-display {
+.display-window {
   border: 5px solid #DD0031;
   border-radius: 25px;
-  /* background-color: #DD0031; */
   padding: 2px;
   min-width: 500px;
 }
 
-.env-window-name {
-  padding: 0px 0px 5px 10px;
-  font-size: 30px;
-  /* color: white; */
+.window-title {
   color: #DD0031;
-  font-family: Apercu, Futura, sans-serif;
-}
-
-.env-window, .env-window-body {
-  padding: 5px;
-}
-
-.env-window-body > div {
-  border-radius: 25px;
-  background-color: white;
+  font: 30px Apercu, Futura, sans-serif;
+  padding: 10px;
+  border-bottom: 5px dotted #DD0031;
 }
 
 .env-window-body > div > header {
-  /* background-color: #F5E3CC; */
   text-decoration: underline;
   color: #5B6770;
 }
@@ -49,36 +37,19 @@ ol, ul {
 
 .selected-container {
   padding-top: 10px;
-  min-width: 500px;
   right: 875px;
 }
 
-.title {
-  padding: 10px;
-  border-bottom: 5px dotted #DD0031;
-}
-
-.inner-title {
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  /* text-decoration: underline; */
-  font-family: Apercu, Futura, sans-serif;
-}
-
-.containers {
-  background-color: white;
-  border-radius: 25px;
+.value-container {
+  /* height: 300px; */
+  min-height: 250px;
+  max-height: 500px;
+  padding-left: 15px;
+  overflow: auto;
 }
 
 .button-container {
   padding: 10px;
-}
-
-.value-container {
-  height: 260px;
-  padding-left: 15px;
-  overflow: scroll;
 }
 
 .button {
@@ -87,10 +58,9 @@ ol, ul {
   width: 128px;
   padding: 10px;
   margin: 11px;
-  font-size: 15px;
-  background-color: white;
   color: #5B6770;
 }
+
 .popup {
   position: absolute;
   width: 100%;
@@ -102,6 +72,7 @@ ol, ul {
   margin: auto;
   background-color: rgba(0,0,0, 0.5);
 }
+
 .popup_inner {
   position: absolute;
   left: 25%;
