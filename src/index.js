@@ -17,6 +17,7 @@ class Page extends React.Component {
       },
       loading: true
     };
+    this.featFlagCallback = this.featFlagCallback.bind(this);
 
     const gh = new GitHub();
     const repo = gh.getRepo('JonCGit', 'config-project');
@@ -46,6 +47,24 @@ class Page extends React.Component {
     });
   };
 
+  featFlagCallback(newConfig, oldValue) {
+    if(oldValue) {
+      this.setState((prevState) => {
+        const indexOfOldValue = prevState.selectedConfig.configValue.indexOf(oldValue);
+        prevState.selectedConfig.configValue.splice(indexOfOldValue, 1);
+        return {
+          selectedConfig: prevState.selectedConfig.configValue.push(newConfig)
+        }
+      });
+    } else {
+      this.setState((prevState) => {
+        return {
+          selectedConfig: prevState.selectedConfig.configValue.push(newConfig)
+        }
+      });
+    }
+  }
+
   render() {
     return (
       <div className="page">
@@ -55,7 +74,7 @@ class Page extends React.Component {
             <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} loading={this.state.loading} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow selectedConfig={this.state.selectedConfig}/>
+            <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback} selectedConfig={this.state.selectedConfig}/>
           </div>
         </div>
       </div>

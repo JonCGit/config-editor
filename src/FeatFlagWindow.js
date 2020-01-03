@@ -10,20 +10,21 @@ class FeatFlagWindow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        value: ''
+        selectedConfigValue: ''
     };
     this.handleChange = this.handleChange.bind(this);
+    this.myCallback = this.myCallback.bind(this);
   }
 
   togglePopup() {
     this.setState({
-      showPopup: !this.state.showPopup,
+      showPopup: !this.state.showPopup
     });
   }
 
   handleChange(changeEvent) {
     this.setState({
-      value: changeEvent.target.value
+      selectedConfigValue: changeEvent.target.value
     });
   }
 
@@ -52,10 +53,21 @@ class FeatFlagWindow extends React.Component {
     }
   }
 
+  myCallback(dataFromPopUp) {
+    if(this.state.selectedConfigValue) {
+      this.props.callbackFromFeatFlag(dataFromPopUp, this.state.selectedConfigValue);
+      this.setState({
+        selectedConfigValue: ''
+      });
+    } else {
+      this.props.callbackFromFeatFlag(dataFromPopUp, null);
+    }
+  }
+
   render() {
     const valueOptions = (
       <FormControl component="fieldset">
-        <RadioGroup value={this.state.value} onChange={this.handleChange}>
+        <RadioGroup value={this.state.selectedConfigValue} onChange={this.handleChange}>
           {this.props.selectedConfig.configValue ?
               this.renderSwitch() : null
           }
@@ -66,7 +78,7 @@ class FeatFlagWindow extends React.Component {
     return (
       <div>
         {this.state.showPopup ?
-          <PopUp value={this.state.value} closePopup={this.togglePopup.bind(this)}/>
+          <PopUp selectedConfigValue={this.state.selectedConfigValue} callbackFromParent={this.myCallback} closePopup={this.togglePopup.bind(this)}/>
           : null
         }
         <div className = "selected-container">
@@ -76,9 +88,9 @@ class FeatFlagWindow extends React.Component {
           {valueOptions}
         </div>
         <div className="button-container">
-          <button className="button" onClick={this.togglePopup.bind(this)}>Add</button>
-          <button className="button">Edit</button>
-          <button className="button">Remove</button>
+          <button disabled={!this.props.selectedConfig.configValue || this.state.selectedConfigValue} className="button" onClick={this.togglePopup.bind(this)}>Add</button>
+          <button disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue} className="button" onClick={this.togglePopup.bind(this)}>Edit</button>
+          <button disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue} className="button">Remove</button>
         </div>
         </div>
       </div>
