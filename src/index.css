@@ -7,30 +7,20 @@ ol, ul {
   padding-left: 30px;
 }
 
-.feature-display {
-  border: 3px solid #999;
-  border-radius: 25px;
-  /* background-color: #DD0031; */
-  padding: 2px;
-}
-
 .feature-display > div {
   padding: 5px;
 }
 
-.env-display {
+.env-display, .feature-display {
   border: 3px solid #999;
   border-radius: 25px;
   background-color: #DD0031;
   padding: 2px;
-  width: 500px;
-}
-
-.env-display > div {
-  padding: 5px;
+  min-width: 500px;
 }
 
 .env-window-name {
+  padding-left: 10px;
   font-size: 30px;
   font-weight: bold;
   color: white;
@@ -38,8 +28,16 @@ ol, ul {
   font-family: sans-serif;
 }
 
-.env-window {
+.env-window, .env-window-body {
   padding: 5px;
+}
+
+.env-window-body > div > * {
+  background-color: #F5E3CC;
+}
+
+.env-window-body > div > div > * {
+  background-color: #004F71;
 }
 
 .row {
@@ -61,6 +59,10 @@ ol, ul {
 
 .inner-title {
   text-align: center;
+  font-weight: bold;
+  color: white;
+  text-decoration: underline;
+  font-family: sans-serif;
 }
 
 .button-container {
@@ -68,6 +70,7 @@ ol, ul {
 }
 
 .value-container {
+  background-color: white;
   height: 260px;
   padding-left: 15px;
   overflow: scroll;
