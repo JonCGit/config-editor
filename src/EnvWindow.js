@@ -1,6 +1,7 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import './index.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const columns = [
   {
@@ -50,9 +51,7 @@ class EnvWindow extends React.Component {
     return (
       <div className="env-display">
         {this.props.loading &&
-          <div>
-            loading
-          </div>
+          <CircularProgress />
         }
         {!this.props.loading &&
           <div>
