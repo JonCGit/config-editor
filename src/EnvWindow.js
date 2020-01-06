@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import DataTable from 'react-data-table-component';
 import './index.css';
 import ConfigJson from './config.json';
 import FeatFlagWindow from './FeatFlagWindow';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const columns = [
   {
@@ -52,23 +52,30 @@ class EnvWindow extends React.Component {
   render() {
     return (
       <div className="env-display">
-        <div className="env-window-name">{this.props.env.name}</div>
+        {this.props.loading &&
+          <CircularProgress />
+        }
+        {!this.props.loading &&
           <div>
+            <div className="env-window-name">{this.props.env.name}</div>
+            <div>
             {this.props.env.configGroups.map((group, index) =>
-              <DataTable
-                key={index}
-                title={group.groupName}
-                columns={columns}
-                data={group.configs}
-                customStyles={customStyles}
-                defaultSortField="configItemId"
-                highlightOnHover
-                pointerOnHover
-                onRowClicked={this.handleFeatFlagChange}
-                onSelectedRowsChange={this.handleFeatFlagChange}
-              />
-            )}
+                <DataTable
+                  key={index}
+                  title={group.groupName}
+                  columns={columns}
+                  data={group.configs}
+                  customStyles={customStyles}
+                  defaultSortField="configItemId"
+                  highlightOnHover
+                  pointerOnHover
+                  onRowClicked={this.handleFeatFlagChange}
+                  onSelectedRowsChange={this.handleFeatFlagChange}
+                />
+              )}
+              </div>
           </div>
+        }
       </div>
     );
   }
