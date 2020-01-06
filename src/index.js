@@ -19,7 +19,10 @@ class Page extends React.Component {
     };
     this.featFlagCallback = this.featFlagCallback.bind(this);
 
-    const gh = new GitHub();
+    let gh = new GitHub({
+      username: 'JonCGit',
+      password: 'Hackathon123'
+    });
     const repo = gh.getRepo('JonCGit', 'config-project');
 
     repo.getContents('development', 'config.json', false, (err, contents) => {
