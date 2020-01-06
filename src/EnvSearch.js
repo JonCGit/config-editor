@@ -21,11 +21,11 @@ class EnvSearch extends React.Component {
   }
 
   render() {
-    const logo = () =>
-      <Img src="CFA_CSymbols/CFA_CSymbol_Circle_Red_PMS.png" />;
+    // const logo = () =>
+    //   <Img src="CFA_CSymbols/CFA_CSymbol_Circle_Red_CMYK.png" />;
     return (
       <div className="row">
-        <div><Img src="CFA_CSymbols/CFA_CSymbol_Circle_Red_PMS.png" /></div>
+        <div><Img src="CFA_CSymbols/CFA_CSymbol_Circle_Red_CMYK.png" /></div>
         <div>
           <select onChange={this.handleChange}>
             {ConfigJson.map((env, index) =>
