@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import DataTable from 'react-data-table-component';
 import './index.css';
 import ConfigJson from './config.json';
 import PropTypes from 'prop-types';
@@ -17,7 +15,6 @@ class EnvSearch extends React.Component {
 
   handleChange(event) {
     this.props.handleEnvChange(ConfigJson[event.target.value]);
-    this.setState({ env: ConfigJson[event.target.value] });
   }
 
   render() {
