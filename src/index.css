@@ -25,6 +25,10 @@ ol, ul {
   border-bottom: 5px dotted #DD0031;
 }
 
+.env-window-body > * {
+  border-radius: 25px;
+}
+
 .env-window-body > div > header {
   text-decoration: underline;
   color: #5B6770;
@@ -41,7 +45,6 @@ ol, ul {
 }
 
 .value-container {
-  /* height: 300px; */
   min-height: 250px;
   max-height: 500px;
   padding-left: 15px;
