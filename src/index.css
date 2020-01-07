@@ -88,6 +88,8 @@ ol, ul {
   background: white;
   z-index: 3;
   border-radius: 25px;
+  /* border: 5px solid #DD0031;
+  color: #5B6770; */
 }
 
 .popup-header {
@@ -118,13 +120,16 @@ ol, ul {
 }
 
 .submit-button {
+  /* border: 3px solid #5B6770;
+  border-radius: 25px;
+  color: #5B6770; */
   width: 100px;
   height: 40px;
   margin: 10px 0 0 126px;
 }
 
 .error {
-    color:#DD0031;
-    font-size: 0.625em;
-    display: inline-block;
+  color:#DD0031;
+  font-size: 0.625em;
+  display: inline-block;
 }
