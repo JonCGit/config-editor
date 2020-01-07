@@ -13,15 +13,15 @@ class Page extends React.Component {
       repository: null,
       env: null,
       selectedConfig: {
-        configValue: null
+        configValue: null,
       },
-      loading: true
+      loading: true,
     };
     this.featFlagCallback = this.featFlagCallback.bind(this);
 
     let gh = new GitHub({
       username: 'JonCGit',
-      password: 'Hackathon123'
+      password: 'Hackathon123',
     });
     const repo = gh.getRepo('JonCGit', 'config-project');
 
@@ -29,7 +29,7 @@ class Page extends React.Component {
       this.setState({
         repository: repo,
         env: JSON.parse(atob(contents.content)),
-        loading: false
+        loading: false,
       });
     });
   }
@@ -42,12 +42,14 @@ class Page extends React.Component {
   handleEnvChange = input => {
     console.log(input.name, 'Selected Env');
     this.setState({ loading: true });
-    this.state.repository.getContents(input.name.toLowerCase(), 'config.json', false, (err, contents) => {
-      this.setState({
-        env: JSON.parse(atob(contents.content)),
-        loading: false
-      });
-    });
+    this.state.repository.getContents(
+      input.name.toLowerCase(), 'config.json', false, (err, contents) => {
+        this.setState({
+          env: JSON.parse(atob(contents.content)),
+          loading: false,
+        });
+      }
+    );
   };
 
   featFlagCallback(newConfig, oldValue) {
@@ -72,7 +74,8 @@ class Page extends React.Component {
         <EnvSearch handleEnvChange={this.handleEnvChange} />
         <div className="row">
           <div className="env-window">
-            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} loading={this.state.loading} />
+            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange}
+              env={this.state.env} loading={this.state.loading} />
           </div>
           <div className="env-window">
             <FeatFlagWindow
