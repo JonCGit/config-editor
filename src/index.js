@@ -1,21 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ConfigJson from './config.json';
 import EnvSearch from './EnvSearch.js';
 import EnvWindow from './EnvWindow.js';
 import FeatFlagWindow from './FeatFlagWindow.js';
+import GitHub from 'github-api';
 
 class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      env: ConfigJson[0],
+      repository: null,
+      env: null,
       selectedConfig: {
-        configValue: null,
+        configValue: null
       },
+      loading: true
     };
     this.featFlagCallback = this.featFlagCallback.bind(this);
+
+    let gh = new GitHub({
+      username: 'JonCGit',
+      password: 'Hackathon123'
+    });
+    const repo = gh.getRepo('JonCGit', 'config-project');
+
+    repo.getContents('development', 'config.json', false, (err, contents) => {
+      this.setState({
+        repository: repo,
+        env: JSON.parse(atob(contents.content)),
+        loading: false
+      });
+    });
   }
 
   handleFeatFlagChange = value => {
@@ -24,8 +40,14 @@ class Page extends React.Component {
   };
 
   handleEnvChange = input => {
-    console.log(input, 'selected Env 100');
-    this.setState({ env: input });
+    console.log(input.name, 'Selected Env');
+    this.setState({ loading: true });
+    this.state.repository.getContents(input.name.toLowerCase(), 'config.json', false, (err, contents) => {
+      this.setState({
+        env: JSON.parse(atob(contents.content)),
+        loading: false
+      });
+    });
   };
 
   featFlagCallback(newConfig, oldValue) {
@@ -50,7 +72,7 @@ class Page extends React.Component {
         <EnvSearch handleEnvChange={this.handleEnvChange} />
         <div className="row">
           <div className="env-window">
-            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} />
+            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} loading={this.state.loading} />
           </div>
           <div className="env-window">
             <FeatFlagWindow
