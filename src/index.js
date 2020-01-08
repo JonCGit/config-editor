@@ -74,7 +74,10 @@ class Page extends React.Component {
         <EnvSearch handleEnvChange={this.handleEnvChange} />
         <div className="row">
           <div className="env-window">
-            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env} loading={this.state.loading} />
+            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange}
+                       env={this.state.env}
+                       selectedConfig={this.state.selectedConfig}
+                       loading={this.state.loading} />
           </div>
           <div className="env-window">
             <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback} selectedConfig={this.state.selectedConfig}/>
