@@ -57,14 +57,18 @@ class Page extends React.Component {
       this.setState((prevState) => {
         const indexOfOldValue = prevState.selectedConfig.configValue.indexOf(oldValue);
         prevState.selectedConfig.configValue.splice(indexOfOldValue, 1);
+        prevState.selectedConfig.configValue.push(newConfig);
         return {
-          selectedConfig: prevState.selectedConfig.configValue.push(newConfig),
+          selectedConfig: prevState.selectedConfig,
         };
       });
     } else {
-      this.setState((prevState) =>
-        ({ selectedConfig: prevState.selectedConfig.configValue.push(newConfig), })
-      );
+      this.setState((prevState) => {
+        prevState.selectedConfig.configValue.push(newConfig);
+        return {
+          selectedConfig: prevState.selectedConfig,
+        };
+      });
     }
   }
 
@@ -75,7 +79,8 @@ class Page extends React.Component {
         <div className="row">
           <div className="env-window">
             <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange}
-              env={this.state.env} loading={this.state.loading} />
+            env={this.state.env} selectedConfig={this.state.selectedConfig}
+            loading={this.state.loading} />
           </div>
           <div className="env-window">
             <FeatFlagWindow
