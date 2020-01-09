@@ -51,21 +51,27 @@ class PopUp extends React.Component {
       !this.props.selectedConfigValue ?
       <div className='popup'>
         <div className='popup_inner'>
-        <div className="popup-header">
-          Add Product <IoIosClose className="close-icon" onClick={this.props.closePopup} />
-        </div>
-        <div className="add-value-field">
-          <form onSubmit={this.handleSubmit} className="form-container" noValidate>
-            <label className="field-label">
-              Enter Value:
-              <input type="text" name="add-value" className="input-field"
-                noValidate onChange={this.handleChange} />
-              {errors.checkValue.length > 0 &&
-              <span className='error'>{errors.checkValue}</span>}
-            </label>
-            <input type="submit" className="submit-button" value="Add"/>
-          </form>
-        </div>
+          <div className="popup-header">
+            Add Product <IoIosClose className="close-icon" onClick={this.props.closePopup} />
+          </div>
+          <div className="add-value-field">
+            <form onSubmit={this.handleSubmit} className="form-container" noValidate>
+              <label className="field-label">
+                Enter Value:
+                <input type="text" name="add-value" className="input-field"
+                  noValidate onChange={this.handleChange} />
+                {errors.checkValue.length > 0 ?
+                <span className='error'>{errors.checkValue}</span> :
+                <span className='error-placeholder'></span>}
+              </label>
+              <label className="field-label">
+                Enter Commit Message (Optional):
+                <input type="text" name="add-msg" className="commit-msg-field"
+                  noValidate onChange={this.handleChange} />
+              </label>
+              <input type="submit" className="submit-button" value="Add"/>
+            </form>
+          </div>
         </div>
       </div> :
       <div className='popup'>
@@ -80,9 +86,15 @@ class PopUp extends React.Component {
                 <input type="text" name="edit-value"
                   defaultValue={this.props.selectedConfigValue}
                   className="input-field" noValidate onChange={this.handleChange} />
-                {errors.checkValue.length > 0 &&
-                <span className='error'>{errors.checkValue}</span>}
-              </label>
+                  {errors.checkValue.length > 0 ?
+                  <span className='error'>{errors.checkValue}</span> :
+                  <span className='error-placeholder'></span>}
+                </label>
+                <label className="field-label">
+                  Enter Commit Message (Optional):
+                  <input type="text" name="add-msg" className="commit-msg-field"
+                    noValidate onChange={this.handleChange} />
+                </label>
               <input type="submit" className="submit-button" value="Edit"/>
             </form>
           </div>
