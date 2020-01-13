@@ -137,3 +137,8 @@ ol, ul {
     font-size: 0.625em;
     display: inline-block;
 }
+
+.remove-message {
+  text-align: center;
+  margin-top: 25px;
+}

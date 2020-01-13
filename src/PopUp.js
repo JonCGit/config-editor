@@ -14,13 +14,14 @@ class PopUp extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onRemoveValueClicked = this.onRemoveValueClicked.bind(this);
   }
 
-  validateForm(errors) {
+  validateForm() {
     let valid = true;
-    Object.values(errors).forEach(
-      (val) => val.length > 0 && (valid = false)
-    );
+    if(this.props.selectedConfigValue === this.state.value) {
+      valid = false;
+    }
     return valid;
   }
 
@@ -48,43 +49,70 @@ class PopUp extends React.Component {
     }
   }
 
-  render() {
-    const {errors} = this.state;
-    return (
-      !this.props.selectedConfigValue ?
-      <div className='popup'>
-        <div className='popup_inner'>
-        <div className="popup-header">Add Product <IoIosClose className="close-icon" onClick={this.props.closePopup} /></div>
-        <div className="add-value-field">
-          <form onSubmit={this.handleSubmit} className="form-container" noValidate>
-            <label className="field-label">
-              Enter Value:
-              <input type="text" name="add-value" className="input-field" noValidate onChange={this.handleChange} />
-              {errors.checkValue.length > 0 &&
-              <span className='error'>{errors.checkValue}</span>}
-            </label>
-            <input type="submit" className="submit-button" value="Add"/>
-          </form>
-        </div>
-        </div>
-      </div> :
-      <div className='popup'>
-          <div className='popup_inner'>
+  onRemoveValueClicked() {
+    this.props.removedValueFromPopup(this.props.selectedConfigValue);
+    this.props.closePopup(false);
+  }
+
+  typeOfPopupOpen() {
+      const {errors} = this.state;
+      if (this.props.type === 'isAdd') {
+        return (
+          <div className='popup'>
+            <div className='popup_inner'>
+              <div className="popup-header">Add Product <IoIosClose className="close-icon" onClick={this.props.closePopup} /></div>
+                <div className="add-value-field">
+                  <form onSubmit={this.handleSubmit} className="form-container" noValidate>
+                    <label className="field-label">
+                      Enter Value:
+                      <input type="text" name="add-value" className="input-field" noValidate onChange={this.handleChange} />
+                        {errors.checkValue.length > 0 &&
+                        <span className='error'>{errors.checkValue}</span>}
+                    </label>
+                      <input disabled={!this.state.value} type="submit" className="submit-button" value="Add"/>
+                  </form>
+                </div>
+            </div>
+          </div>
+        )
+      } else if (this.props.type === 'isEdit') {
+        return (
+          <div className='popup'>
+            <div className='popup_inner'>
               <div className="popup-header">Edit Product <IoIosClose className="close-icon" onClick={this.props.closePopup} /></div>
               <div className="add-value-field">
-                  <form onSubmit={this.handleSubmit} className="form-container" noValidate>
-                      <label className="field-label">
-                          Edit Value:
-                          <input type="text" name="edit-value" defaultValue={this.props.selectedConfigValue} className="input-field" noValidate onChange={this.handleChange} />
-                          {errors.checkValue.length > 0 &&
-                          <span className='error'>{errors.checkValue}</span>}
-                      </label>
-                      <input type="submit" className="submit-button" value="Edit"/>
-                  </form>
+                <form onSubmit={this.handleSubmit} className="form-container" noValidate>
+                  <label className="field-label">
+                    Edit Value:
+                    <input type="text" name="edit-value" defaultValue={this.props.selectedConfigValue} className="input-field" noValidate onChange={this.handleChange} />
+                    {errors.checkValue.length > 0 &&
+                    <span className='error'>{errors.checkValue}</span>}
+                  </label>
+                  <input disabled={!this.state.value} type="submit" className="submit-button" value="Edit"/>
+                </form>
+              </div>
               </div>
           </div>
-      </div>
+        )
+      } else if (this.props.type === 'isRemove') {
+        return (
+          <div className='popup'>
+              <div className='popup_inner'>
+                  <div className="popup-header">Remove Product <IoIosClose className="close-icon" onClick={this.props.closePopup} /></div>
+                  <div className="remove-message">
+                    Are you sure you want to remove the {this.props.selectedConfigValue}.
+                      <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
+                      <button className="button" onClick={this.props.closePopup}>No</button>
+                  </div>
+              </div>
+          </div>
+        )
+      }
+  }
 
+  render() {
+    return (
+      this.typeOfPopupOpen()
     );
   }
 }
