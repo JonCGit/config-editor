@@ -24,9 +24,9 @@ class EnvSearch extends React.Component {
       <div className="row">
         <div><Img src="CFA_CSymbols/CFA_CSymbol_Circle_Red_CMYK.png" /></div>
         <div>
-          <select onChange={this.handleChange}>
+          <select className='env-select' onChange={this.handleChange}>
             {ConfigJson.map((env, index) =>
-              <option key={index} value={index}>{env.name}</option>
+              <option key={index} value={index}>Environment: {env.name}</option>
             )}
           </select>
         </div>
