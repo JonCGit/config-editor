@@ -48,6 +48,18 @@ class EnvWindow extends React.Component {
   }
 
   render() {
+    const conditionalRowStyles = [
+      {
+        when: row => row === this.props.selectedConfig,
+        style: {
+          backgroundColor: 'rgb(230, 244, 244)',
+          borderBottomColor: '#FFFFFF',
+          borderRadius: '25px',
+          outline: '1px solid #FFFFFF',
+        },
+      },
+    ];
+
     return (
       <div className="display-window">
         {this.props.loading &&
@@ -69,6 +81,7 @@ class EnvWindow extends React.Component {
                   pointerOnHover
                   onRowClicked={this.handleFeatFlagChange}
                   onSelectedRowsChange={this.handleFeatFlagChange}
+                  conditionalRowStyles={conditionalRowStyles}
                 />
               )}
               </div>

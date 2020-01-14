@@ -137,6 +137,11 @@ ol, ul {
   margin: 10px 0 0 126px;
 }
 
+.remove-message {
+  text-align: center;
+  margin-top: 25px;
+}
+
 .error {
   color:#DD0031;
   font-size: 0.625em;
