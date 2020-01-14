@@ -139,13 +139,18 @@ ol, ul {
 }
 
 .error {
-  color:#DD0031;
-  font-size: 0.625em;
-  display: inline-block;
+    color:#DD0031;
+    font-size: 0.625em;
+    display: inline-block;
 }
 
 .error-placeholder {
   height: 15px;
   width: 100%;
   display: inline-block;
+}
+
+.remove-message {
+  text-align: center;
+  margin-top: 25px;
 }
