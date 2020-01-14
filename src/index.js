@@ -18,6 +18,7 @@ class Page extends React.Component {
       loading: true
     };
     this.featFlagCallback = this.featFlagCallback.bind(this);
+    this.selectedRemovedValue= this.selectedRemovedValue.bind(this);
 
     let gh = new GitHub({
       username: 'JonCGit',
@@ -33,6 +34,26 @@ class Page extends React.Component {
       });
     });
   }
+
+  updateConfig = configData => {
+    console.log(configData, 'data');
+      configData.name = configData.name.toLowerCase();
+      const base64json = require('base64json');
+
+      // This data variable is just dummy data, use the config data input once it is setup
+      let data = configData;
+
+      let encoded = base64json.stringify(data, null, 2);
+      let options = {
+          encode: false
+      };
+
+      // TODO: replace the branch name and commit message with user inputs
+      this.state.repository.writeFile(configData.name, 'config.json', encoded, 'test commit 64', options, (err, contents) => {
+          console.log(contents, 'contents');
+          this.handleEnvChange(configData);
+      });
+  };
 
   handleFeatFlagChange = value => {
     console.log(value, 'Selected config');
@@ -50,47 +71,6 @@ class Page extends React.Component {
     });
   };
 
-  updateConfig = configData => {
-    const base64json = require('base64json');
-
-    // This data variable is just dummy data, use the config data input once it is setup
-    let data = {
-      "name":"Prod",
-      "configGroups":[
-        {
-          "groupName":"Offer Configs",
-          "configs":[
-            {
-              "configValue":"Free Chick-Fil-A Breakfast Item",
-              "configType":"string",
-              "configItemId":"crn.offerTitle"
-            },
-            {
-              "configValue":"Enjoy one of these breakfast items on us! Offer expires 12/31/2019.",
-              "configType":"string",
-              "configItemId":"crn.offerMessage"
-            },
-            {
-              "configValue":"http://www.cfacdn.com/img/order/menu/Mobile/Entrees/Parent/bts_mog_offer.png",
-              "configType":"imageUrl",
-              "configItemId":"crn.offerImage"
-            }
-          ]
-        }
-      ]
-    };
-
-    let encoded = base64json.stringify(data, null, 2);
-    let options = {
-      encode: false
-    };
-
-    // TODO: replace the branch name and commit message with user inputs
-    this.state.repository.writeFile('prod', 'config.json', encoded, 'test commit 64', options, (err, contents) => {
-      console.log(contents, 'branch data after write');
-    });
-  };
-
   featFlagCallback(newConfig, oldValue) {
     if(oldValue) {
       this.setState((prevState) => {
@@ -99,7 +79,9 @@ class Page extends React.Component {
         prevState.selectedConfig.configValue.push(newConfig)
         return {
           selectedConfig: prevState.selectedConfig
-        }
+        };
+      }, () => {
+        this.updateConfig(this.state.env);
       });
     } else {
       this.setState((prevState) => {
@@ -107,8 +89,21 @@ class Page extends React.Component {
         return {
           selectedConfig: prevState.selectedConfig
         }
+      }, () => {
+        this.updateConfig(this.state.env);
       });
     }
+  }
+
+  selectedRemovedValue(selected) {
+    this.setState((prevState) => {
+      const indexOfSelectedValue = prevState.selectedConfig.configValue.indexOf(selected);
+      prevState.selectedConfig.configValue.splice(indexOfSelectedValue, 1);
+      return {
+          selectedConfig: prevState.selectedConfig
+      }
+    });
+    this.updateConfig(this.state.env);
   }
 
   render() {
@@ -123,7 +118,7 @@ class Page extends React.Component {
                        loading={this.state.loading} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback} selectedConfig={this.state.selectedConfig}/>
+            <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback} getSelectedRemovedValue={this.selectedRemovedValue} selectedConfig={this.state.selectedConfig}/>
           </div>
         </div>
       </div>
