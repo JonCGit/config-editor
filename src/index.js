@@ -18,7 +18,7 @@ class Page extends React.Component {
       loading: true,
     };
     this.featFlagCallback = this.featFlagCallback.bind(this);
-    this.selectedRemovedValue= this.selectedRemovedValue.bind(this);
+    this.selectedRemovedValue = this.selectedRemovedValue.bind(this);
 
     let gh = new GitHub({
       username: 'JonCGit',
@@ -37,22 +37,24 @@ class Page extends React.Component {
 
   updateConfig = configData => {
     console.log(configData, 'data');
-      configData.name = configData.name.toLowerCase();
-      const base64json = require('base64json');
+    configData.name = configData.name.toLowerCase();
+    const base64json = require('base64json');
 
-      // This data variable is just dummy data, use the config data input once it is setup
-      let data = configData;
+    // This data variable is just dummy data, use the config data input once it is setup
+    let data = configData;
 
-      let encoded = base64json.stringify(data, null, 2);
-      let options = {
-          encode: false
-      };
+    let encoded = base64json.stringify(data, null, 2);
+    let options = {
+      encode: false,
+    };
 
-      // TODO: replace the branch name and commit message with user inputs
-      this.state.repository.writeFile(configData.name, 'config.json', encoded, 'test commit 64', options, (err, contents) => {
-          console.log(contents, 'contents');
-          this.handleEnvChange(configData);
-      });
+    // TODO: replace the branch name and commit message with user inputs
+    this.state.repository.writeFile(
+      configData.name, 'config.json', encoded, 'test commit 64', options, (err, contents) => {
+        console.log(contents, 'contents');
+        this.handleEnvChange(configData);
+      }
+    );
   };
 
   handleFeatFlagChange = value => {
@@ -80,7 +82,7 @@ class Page extends React.Component {
         prevState.selectedConfig.configValue.splice(indexOfOldValue, 1);
         prevState.selectedConfig.configValue.push(newConfig);
         return {
-          selectedConfig: prevState.selectedConfig
+          selectedConfig: prevState.selectedConfig,
         };
       }, () => {
         this.updateConfig(this.state.env);
@@ -89,8 +91,8 @@ class Page extends React.Component {
       this.setState((prevState) => {
         prevState.selectedConfig.configValue.push(newConfig);
         return {
-          selectedConfig: prevState.selectedConfig
-        }
+          selectedConfig: prevState.selectedConfig,
+        };
       }, () => {
         this.updateConfig(this.state.env);
       });
@@ -102,8 +104,8 @@ class Page extends React.Component {
       const indexOfSelectedValue = prevState.selectedConfig.configValue.indexOf(selected);
       prevState.selectedConfig.configValue.splice(indexOfSelectedValue, 1);
       return {
-          selectedConfig: prevState.selectedConfig
-      }
+        selectedConfig: prevState.selectedConfig,
+      };
     });
     this.updateConfig(this.state.env);
   }
@@ -114,13 +116,13 @@ class Page extends React.Component {
         <EnvSearch handleEnvChange={this.handleEnvChange} />
         <div className="row">
           <div className="env-window">
-            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange}
-                       env={this.state.env}
-                       selectedConfig={this.state.selectedConfig}
-                       loading={this.state.loading} />
+            <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env}
+              selectedConfig={this.state.selectedConfig} loading={this.state.loading} />
           </div>
           <div className="env-window">
-            <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback} getSelectedRemovedValue={this.selectedRemovedValue} selectedConfig={this.state.selectedConfig}/>
+            <FeatFlagWindow callbackFromFeatFlag={this.featFlagCallback}
+              getSelectedRemovedValue={this.selectedRemovedValue}
+              selectedConfig={this.state.selectedConfig}/>
           </div>
         </div>
       </div>

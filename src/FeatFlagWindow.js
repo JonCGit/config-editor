@@ -10,8 +10,8 @@ class FeatFlagWindow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        selectedConfigValue: '',
-        type: ''
+      selectedConfigValue: '',
+      type: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.myCallback = this.myCallback.bind(this);
@@ -22,7 +22,7 @@ class FeatFlagWindow extends React.Component {
   togglePopup(type) {
     this.setState({
       showPopup: !this.state.showPopup,
-      type: type
+      type: type,
     });
   }
 
@@ -69,7 +69,7 @@ class FeatFlagWindow extends React.Component {
   removeCallBack(selectedValue) {
     this.props.getSelectedRemovedValue(selectedValue);
     this.setState({
-        selectedConfigValue: ''
+      selectedConfigValue: '',
     });
   }
 
@@ -92,7 +92,9 @@ class FeatFlagWindow extends React.Component {
           closePopup={() => this.togglePopup('close')}/> : null
         }
         <div className="window-title">
-          {this.props.selectedConfig.configItemId ? this.props.selectedConfig.configItemId : 'Selected Config Values'}
+          {this.props.selectedConfig.configItemId ?
+            this.props.selectedConfig.configItemId :
+            'Selected Config Values'}
         </div>
         <div className="selected-container">
           <div className="value-container">{valueOptions}</div>
