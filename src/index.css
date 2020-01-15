@@ -117,7 +117,7 @@ ol, ul {
 }
 
 .form-container {
-  margin: 25px 0 0 15px;
+  margin: 25px 0 0 10px;
 }
 
 .input-field {
@@ -139,9 +139,9 @@ ol, ul {
 }
 
 .error {
-    color:#DD0031;
-    font-size: 0.625em;
-    display: inline-block;
+  color:#DD0031;
+  font-size: 0.625em;
+  display: inline-block;
 }
 
 .error-placeholder {
@@ -153,4 +153,9 @@ ol, ul {
 .remove-message {
   text-align: center;
   margin-top: 25px;
+}
+
+.remove-buttons {
+  margin: auto;
+  width: 50%;
 }

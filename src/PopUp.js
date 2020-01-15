@@ -117,14 +117,23 @@ class PopUp extends React.Component {
       return (
         <div className='popup'>
             <div className='popup_inner'>
-                <div className="popup-header">
-                  Remove Item<IoIosClose className="close-icon" onClick={this.props.closePopup}/>
+              <div className="popup-header">
+                Remove Item<IoIosClose className="close-icon" onClick={this.props.closePopup}/>
+              </div>
+              <div className="remove-message">
+                Are you sure you want to remove {this.props.selectedConfigValue}?
+                <form className="form-container">
+                  <label className="field-label">
+                    If "Yes", Enter Commit Message (Optional):
+                    <input type="text" name="add-msg" className="commit-msg-field"
+                      noValidate onChange={this.handleChange} />
+                  </label>
+                </form>
+                <div className="row remove-buttons">
+                  <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
+                  <button className="button" onClick={this.props.closePopup}>No</button>
                 </div>
-                <div className="remove-message">
-                  Are you sure you want to remove the {this.props.selectedConfigValue}.
-                    <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
-                    <button className="button" onClick={this.props.closePopup}>No</button>
-                </div>
+              </div>
             </div>
         </div>
       );
