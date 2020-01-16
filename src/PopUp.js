@@ -72,7 +72,7 @@ class PopUp extends React.Component {
                   <span className='error-placeholder'></span>}
                 </label>
                 <label className="field-label">
-                  Enter Commit Message (Optional):
+                  Commit Message (Optional):
                   <input type="text" name="add-msg" className="commit-msg-field"
                     noValidate onChange={this.handleChange} />
                 </label>
@@ -102,7 +102,7 @@ class PopUp extends React.Component {
                   <span className='error-placeholder'></span>}
                 </label>
                 <label className="field-label">
-                  Enter Commit Message (Optional):
+                  Commit Message (Optional):
                   <input type="text" name="add-msg" className="commit-msg-field"
                     noValidate onChange={this.handleChange} />
                 </label>
@@ -124,7 +124,7 @@ class PopUp extends React.Component {
                 Are you sure you want to remove {this.props.selectedConfigValue}?
                 <form className="form-container">
                   <label className="field-label">
-                    If "Yes", Enter Commit Message (Optional):
+                    Commit Message (Optional):
                     <input type="text" name="add-msg" className="commit-msg-field"
                       noValidate onChange={this.handleChange} />
                   </label>
