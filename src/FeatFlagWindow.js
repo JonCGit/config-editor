@@ -20,10 +20,18 @@ class FeatFlagWindow extends React.Component {
   }
 
   togglePopup(type) {
-    this.setState({
-      showPopup: !this.state.showPopup,
-      type: type,
-    });
+    if (type === 'isAdd') {
+      this.setState({
+          showPopup: !this.state.showPopup,
+          type: type,
+          selectedConfigValue: ''
+      });
+    } else {
+      this.setState({
+          showPopup: !this.state.showPopup,
+          type: type
+      });
+    }
   }
 
   handleChange(changeEvent) {
@@ -87,7 +95,7 @@ class FeatFlagWindow extends React.Component {
     return (
       <div className="display-window">
         {this.state.showPopup
-          ? <PopUp selectedConfigValue={this.state.selectedConfigValue} type={this.state.type}
+          ? <PopUp selectedConfigValue={this.state.selectedConfigValue} configType={this.props.selectedConfig.configType} type={this.state.type}
           callbackFromParent={this.myCallback} removedValueFromPopup={this.removeCallBack}
           closePopup={() => this.togglePopup('close')}/> : null
         }
@@ -100,13 +108,13 @@ class FeatFlagWindow extends React.Component {
           <div className="value-container">{valueOptions}</div>
           <div className="button-container">
             <button
-              disabled={!this.props.selectedConfig.configValue || this.state.selectedConfigValue}
+              disabled={this.props.selectedConfig.configType !== 'locationList'}
               className="button" onClick={() => this.togglePopup('isAdd')}>Add</button>
             <button
               disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue}
               className="button" onClick={() => this.togglePopup('isEdit')}>Edit</button>
             <button
-              disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue}
+              disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue || this.props.selectedConfig.configType !== 'locationList'}
               className="button" onClick={() => this.togglePopup('isRemove')}>Remove</button>
           </div>
         </div>

@@ -79,8 +79,7 @@ class Page extends React.Component {
     if (oldValue) {
       this.setState((prevState) => {
         const indexOfOldValue = prevState.selectedConfig.configValue.indexOf(oldValue);
-        prevState.selectedConfig.configValue.splice(indexOfOldValue, 1);
-        prevState.selectedConfig.configValue.push(newConfig);
+        prevState.selectedConfig.configValue.splice(indexOfOldValue, 1, newConfig);
         return {
           selectedConfig: prevState.selectedConfig,
         };

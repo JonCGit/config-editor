@@ -29,14 +29,34 @@ class PopUp extends React.Component {
   handleChange(event) {
     const { name, value } = event.target;
     let errors = this.state.errors;
-    switch (name) {
-      case 'add-value':
-        errors.checkValue = value.length < 5 ? 'Full Name must be 5 characters long!' : '';
-        break;
-      default:
-        break;
+    if (this.props.configType === 'locationList') {
+      switch (name) {
+        case 'add-value':
+            if (value.length < 5) {
+              errors.checkValue = 'Location number must be 5 characters long!'
+            } else if (value.length > 5) {
+              errors.checkValue = 'Location number can not be more than 5 characters long!'
+            } else  {
+                errors.checkValue = ''
+            }
+            break;
+        case 'edit-value':
+            if (value.length < 5) {
+                errors.checkValue = 'Location number must be 5 characters long!'
+            } else if (value.length > 5) {
+                errors.checkValue = 'Location number can not be more than 5 characters long!'
+            } else  {
+                errors.checkValue = ''
+            }
+            break;
+        default:
+            break;
+      }
+    } else {
+        errors.checkValue = '';
     }
-    this.setState({ errors, value: event.target.value });
+
+    this.setState({errors, value: event.target.value});
   }
 
   handleSubmit(event) {
@@ -70,7 +90,7 @@ class PopUp extends React.Component {
                   {errors.checkValue.length > 0 &&
                     <span className='error'>{errors.checkValue}</span>}
                 </label>
-                <input disabled={!this.state.value} type="submit"
+                <input disabled={!this.state.value || errors.checkValue.length > 0} type="submit"
                   className="submit-button" value="Add"/>
               </form>
             </div>
@@ -93,7 +113,7 @@ class PopUp extends React.Component {
                   {errors.checkValue.length > 0 &&
                     <span className='error'>{errors.checkValue}</span>}
                 </label>
-                <input disabled={!this.state.value} type="submit"
+                <input disabled={!this.state.value || errors.checkValue.length > 0} type="submit"
                   className="submit-button" value="Edit"/>
               </form>
             </div>
