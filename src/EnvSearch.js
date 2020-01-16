@@ -17,11 +17,16 @@ class EnvSearch extends React.Component {
 
   render() {
     return (
-      <select onChange={this.handleChange}>
-        {ConfigJson.map((env, index) =>
-          <option key={index} value={index}>{env.name}</option>
-        )}
-      </select>
+      <div className="row">
+        <div>
+          Environment:
+          <select className='env-select' onChange={this.handleChange}>
+            {ConfigJson.map((env, index) =>
+              <option key={index} value={index}>{env.name}</option>
+            )}
+          </select>
+        </div>
+      </div>
     );
   }
 }
