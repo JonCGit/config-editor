@@ -1,7 +1,6 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import './index.css';
-import FeatFlagWindow from './FeatFlagWindow';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const columns = [
@@ -62,14 +61,14 @@ class EnvWindow extends React.Component {
     ];
 
     return (
-      <div className="env-display">
+      <div className="display-window">
         {this.props.loading &&
           <CircularProgress />
         }
         {!this.props.loading &&
           <div>
-            <div className="env-window-name">{this.props.env.name}</div>
-            <div>
+            <div className="window-title">{this.props.env.name}</div>
+            <div className="env-window-body">
             {this.props.env.configGroups.map((group, index) =>
                 <DataTable
                   key={index}

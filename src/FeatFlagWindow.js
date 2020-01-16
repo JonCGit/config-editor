@@ -84,34 +84,30 @@ class FeatFlagWindow extends React.Component {
       </FormControl>
     );
     return (
-      <div>
-        {this.state.showPopup ?
-          <PopUp selectedConfigValue={this.state.selectedConfigValue} type={this.state.type}
-            callbackFromParent={this.myCallback} removedValueFromPopup={this.removeCallBack}
-            closePopup={() => this.togglePopup('close')}/>
-          : null
+      <div className="display-window">
+        {this.state.showPopup
+          ? <PopUp selectedConfigValue={this.state.selectedConfigValue} type={this.state.type}
+          callbackFromParent={this.myCallback} removedValueFromPopup={this.removeCallBack}
+          closePopup={() => this.togglePopup('close')}/> : null
         }
-        <div className = "selected-container">
-        <h2 className="title">
+        <div className="window-title">
           {this.props.selectedConfig.configItemId ?
             this.props.selectedConfig.configItemId :
             'Selected Config Values'}
-        </h2>
-        <h4 className="inner-title">Values</h4>
-        <div className="value-container">
-          {valueOptions}
         </div>
-        <div className="button-container">
-          <button
-            disabled={!this.props.selectedConfig.configValue || this.state.selectedConfigValue}
-            className="button" onClick={() => this.togglePopup('isAdd')}>Add</button>
-          <button
-            disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue}
-            className="button" onClick={() => this.togglePopup('isEdit')}>Edit</button>
-          <button
-            disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue}
-            className="button" onClick={() => this.togglePopup('isRemove')}>Remove</button>
-        </div>
+        <div className="selected-container">
+          <div className="value-container">{valueOptions}</div>
+          <div className="button-container">
+            <button
+              disabled={!this.props.selectedConfig.configValue || this.state.selectedConfigValue}
+              className="button" onClick={() => this.togglePopup('isAdd')}>Add</button>
+            <button
+              disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue}
+              className="button" onClick={() => this.togglePopup('isEdit')}>Edit</button>
+            <button
+              disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue}
+              className="button" onClick={() => this.togglePopup('isRemove')}>Remove</button>
+          </div>
         </div>
       </div>
     );

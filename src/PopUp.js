@@ -88,7 +88,7 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Edit Product<IoIosClose className="close-icon" onClick={this.props.closePopup}/>
+              Edit Product<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="add-value-field">
               <form onSubmit={this.handleSubmit} className="form-container" noValidate>
@@ -110,7 +110,7 @@ class PopUp extends React.Component {
                   className="submit-button" value="Edit"/>
               </form>
             </div>
-            </div>
+          </div>
         </div>
       );
     } else if (this.props.type === 'isRemove') {
