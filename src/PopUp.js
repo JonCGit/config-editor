@@ -59,7 +59,7 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Add Product<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+              Add<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="add-value-field">
               <form onSubmit={this.handleSubmit} className="form-container" noValidate>
@@ -82,7 +82,7 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Edit Product<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+              Edit<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="add-value-field">
               <form onSubmit={this.handleSubmit} className="form-container" noValidate>
@@ -105,7 +105,7 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Remove Product<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+              Remove<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="remove-message">
               Are you sure you want to remove {this.props.selectedConfigValue}?
