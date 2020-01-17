@@ -55,9 +55,9 @@ ol, ul {
   overflow: auto;
 }
 
-.value-container > * {
+.value-container * {
   color: #5B6770;
-  font-size: 12px;
+  font-size: 16px !important;
 }
 
 .button-container {
@@ -71,6 +71,12 @@ ol, ul {
   padding: 10px;
   margin: 11px;
   color: #5B6770;
+}
+
+button:disabled, input[type='submit']:disabled {
+  border: 3px solid lightgrey;
+  color: lightgrey;
+  cursor: not-allowed;
 }
 
 .popup {
