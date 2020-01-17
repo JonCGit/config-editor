@@ -111,6 +111,9 @@ class FeatFlagWindow extends React.Component {
             'Selected Config Values'}
         </div>
         <div className="selected-container">
+          <div className="help-text">
+            {this.props.selectedConfig.configItemId ? '' : 'Select a config to edit the values'}
+          </div>
           <div className="value-container">{valueOptions}</div>
           <div className="button-container">
             <button

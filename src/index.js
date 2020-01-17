@@ -36,8 +36,7 @@ class Page extends React.Component {
   }
 
   updateConfig = configData => {
-    // console.log(configData, 'data');
-    configData.name = configData.name.toLowerCase();
+    console.log(configData, 'data');
     const base64json = require('base64json');
 
     // This data variable is just dummy data, use the config data input once it is setup
@@ -50,8 +49,8 @@ class Page extends React.Component {
 
     // TODO: replace the branch name and commit message with user inputs
     this.state.repository.writeFile(
-      configData.name, 'config.json', encoded, 'test commit 64', options, (err, contents) => {
-        // console.log(contents, 'contents');
+      configData.name.toLowerCase(), 'config.json', encoded, 'test commit 64', options, (err, contents) => {
+        console.log(contents, 'contents');
         this.handleEnvChange(configData);
       }
     );
@@ -114,8 +113,9 @@ class Page extends React.Component {
       return {
         selectedConfig: prevState.selectedConfig,
       };
+    }, () => {
+      this.updateConfig(this.state.env);
     });
-    this.updateConfig(this.state.env);
   }
 
   render() {
