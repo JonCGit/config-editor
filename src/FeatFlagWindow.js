@@ -64,13 +64,18 @@ class FeatFlagWindow extends React.Component {
   }
 
   myCallback(dataFromPopUp) {
-    if (this.state.selectedConfigValue) {
-      this.props.callbackFromFeatFlag(dataFromPopUp, this.state.selectedConfigValue);
+    if (this.state.selectedConfigValue && this.props.selectedConfig.configType === 'locationList') {
+      this.props.callbackFromFeatFlag(dataFromPopUp, this.state.selectedConfigValue, 'isArray');
+      this.setState({
+        selectedConfigValue: '',
+      });
+    } else if (this.state.selectedConfigValue && this.props.selectedConfig.configType !== 'locationList') {
+      this.props.callbackFromFeatFlag(dataFromPopUp, this.state.selectedConfigValue, 'isNotArray');
       this.setState({
         selectedConfigValue: '',
       });
     } else {
-      this.props.callbackFromFeatFlag(dataFromPopUp, null);
+      this.props.callbackFromFeatFlag(dataFromPopUp, null, null);
     }
   }
 
