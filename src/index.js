@@ -114,8 +114,9 @@ class Page extends React.Component {
       return {
         selectedConfig: prevState.selectedConfig,
       };
+    }, () => {
+      this.updateConfig(this.state.env);
     });
-    this.updateConfig(this.state.env);
   }
 
   render() {
