@@ -75,12 +75,20 @@ class Page extends React.Component {
     );
   };
 
-  featFlagCallback(newConfig, oldValue) {
-    if (oldValue) {
+  featFlagCallback(newConfig, oldValue, valueType) {
+    if (valueType === 'isArray' && oldValue) {
       this.setState((prevState) => {
         const indexOfOldValue = prevState.selectedConfig.configValue.indexOf(oldValue);
-        prevState.selectedConfig.configValue.splice(indexOfOldValue, 1);
-        prevState.selectedConfig.configValue.push(newConfig);
+        prevState.selectedConfig.configValue.splice(indexOfOldValue, 1, newConfig);
+        return {
+          selectedConfig: prevState.selectedConfig,
+        };
+      }, () => {
+        this.updateConfig(this.state.env);
+      });
+    } else if (valueType === 'isNotArray') {
+      this.setState((prevState) => {
+        prevState.selectedConfig.configValue = newConfig;
         return {
           selectedConfig: prevState.selectedConfig,
         };
