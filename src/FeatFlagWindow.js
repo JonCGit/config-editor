@@ -22,14 +22,14 @@ class FeatFlagWindow extends React.Component {
   togglePopup(type) {
     if (type === 'isAdd') {
       this.setState({
-          showPopup: !this.state.showPopup,
-          type: type,
-          selectedConfigValue: ''
+        showPopup: !this.state.showPopup,
+        type: type,
+        selectedConfigValue: '',
       });
     } else {
       this.setState({
-          showPopup: !this.state.showPopup,
-          type: type
+        showPopup: !this.state.showPopup,
+        type: type,
       });
     }
   }

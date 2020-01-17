@@ -35,31 +35,33 @@ class PopUp extends React.Component {
     if (this.props.configType === 'locationList') {
       switch (name) {
         case 'add-value':
-            if (value.length < 5) {
-              errors.checkValue = 'Location number must be 5 characters long!'
-            } else if (value.length > 5) {
-              errors.checkValue = 'Location number can not be more than 5 characters long!'
-            } else  {
-                errors.checkValue = ''
-            }
-            break;
+          if (value.length < 5) {
+            errors.checkValue = 'Location number must be 5 characters long!';
+          } else if (value.length > 5) {
+            errors.checkValue = 'Location number can not be more than 5 characters long!';
+          } else {
+            errors.checkValue = '';
+          }
+
+          break;
         case 'edit-value':
-            if (value.length < 5) {
-                errors.checkValue = 'Location number must be 5 characters long!'
-            } else if (value.length > 5) {
-                errors.checkValue = 'Location number can not be more than 5 characters long!'
-            } else  {
-                errors.checkValue = ''
-            }
-            break;
+          if (value.length < 5) {
+            errors.checkValue = 'Location number must be 5 characters long!';
+          } else if (value.length > 5) {
+            errors.checkValue = 'Location number can not be more than 5 characters long!';
+          } else {
+            errors.checkValue = '';
+          }
+
+          break;
         default:
-            break;
+          break;
       }
     } else {
-        errors.checkValue = '';
+      errors.checkValue = '';
     }
 
-    this.setState({errors, value: event.target.value});
+    this.setState({ errors, value: event.target.value });
   }
 
   handleSubmit(event) {
@@ -79,18 +81,18 @@ class PopUp extends React.Component {
     if (this.props.configType === 'locationList' || this.props.configType === 'integer') {
       return (
         <input type="number" name="edit-value" defaultValue={this.props.selectedConfigValue} className="input-field" noValidate onChange={this.handleChange}/>
-      )
+      );
     } else if (this.props.configType === 'boolean') {
       return (
-        <RadioGroup style={{flexDirection: "row"}} name="boolean-value" defaultValue={this.props.selectedConfigValue} onChange={this.handleChange} className="boolean-radio">
-          <Radio color="primary" className='popup-radio' style={{flex:1}} value="True" />True
-          <Radio color="primary" className='popup-radio' style={{flex:1}} value="False" />False
+        <RadioGroup style={{ flexDirection: 'row' }} name="boolean-value" defaultValue={this.props.selectedConfigValue} onChange={this.handleChange} className="boolean-radio">
+          <Radio color="primary" className='popup-radio' style={{ flex: 1 }} value="True" />True
+          <Radio color="primary" className='popup-radio' style={{ flex: 1 }} value="False" />False
         </RadioGroup>
-      )
+      );
     } else {
       return (
         <input type="text" name="edit-value" defaultValue={this.props.selectedConfigValue} className="input-field" noValidate onChange={this.handleChange}/>
-      )
+      );
     }
   }
 
@@ -101,7 +103,7 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Add Value<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+              Add<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="add-value-field">
               <form onSubmit={this.handleSubmit} className="form-container" noValidate>
@@ -124,7 +126,7 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Edit Value<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+              Edit<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="add-value-field">
               <form onSubmit={this.handleSubmit} className="form-container" noValidate>
@@ -146,12 +148,14 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Remove Value<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+              Remove<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="remove-message">
               Are you sure you want to remove {this.props.selectedConfigValue}?
-              <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
-              <button className="button" onClick={this.props.closePopup}>No</button>
+              <div className="row remove-buttons">
+                <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
+                <button className="button" onClick={this.props.closePopup}>No</button>
+              </div>
             </div>
           </div>
         </div>

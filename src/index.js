@@ -90,10 +90,10 @@ class Page extends React.Component {
       this.setState((prevState) => {
         prevState.selectedConfig.configValue = newConfig;
         return {
-            selectedConfig: prevState.selectedConfig,
+          selectedConfig: prevState.selectedConfig,
         };
       }, () => {
-          this.updateConfig(this.state.env);
+        this.updateConfig(this.state.env);
       });
     } else {
       this.setState((prevState) => {
