@@ -175,8 +175,10 @@ button:disabled, input[type='submit']:disabled {
 }
 
 .remove-message {
+  font-size: large;
   text-align: center;
-  margin-top: 25px;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .remove-buttons {
