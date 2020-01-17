@@ -152,8 +152,10 @@ class PopUp extends React.Component {
             </div>
             <div className="remove-message">
               Are you sure you want to remove {this.props.selectedConfigValue}?
-              <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
-              <button className="button" onClick={this.props.closePopup}>No</button>
+              <div className="row remove-buttons">
+                <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
+                <button className="button" onClick={this.props.closePopup}>No</button>
+              </div>
             </div>
           </div>
         </div>

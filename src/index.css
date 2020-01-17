@@ -31,6 +31,9 @@ ol, ul {
 
 .env-window-body > div > header {
   text-decoration: underline;
+}
+
+.env-window-body * {
   color: #5B6770;
 }
 
@@ -160,6 +163,11 @@ button:disabled, input[type='submit']:disabled {
   margin-top: 25px;
 }
 
+.remove-buttons {
+  margin: auto;
+  width: 50%;
+}
+
 .error {
   color:#DD0031;
   font-size: 14px;
@@ -192,6 +200,7 @@ button:disabled, input[type='submit']:disabled {
 }
 
 .help-text {
-    font-size: 18px;
-    text-align: center;
+  font-size: 18px;
+  text-align: center;
+  color: #5B6770;
 }
