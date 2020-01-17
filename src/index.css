@@ -132,6 +132,15 @@ ol, ul {
   font-size: large;
 }
 
+.boolean-radio {
+  width: 35%;
+  margin: -7% 0 0 24%;
+}
+
+.popup-radio {
+  margin: -7px 0 0 0 !important;
+}
+
 .submit-button {
   /* border: 3px solid #5B6770;
   border-radius: 25px;
@@ -143,7 +152,7 @@ ol, ul {
 
 .error {
   color:#DD0031;
-  font-size: 0.625em;
+  font-size: 14px;
   display: inline-block;
 }
 

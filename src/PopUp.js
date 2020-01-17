@@ -1,6 +1,8 @@
 import React from 'react';
 import './index.css';
 import { IoIosClose } from 'react-icons/io';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 class PopUp extends React.Component {
   constructor(props) {
@@ -28,14 +30,37 @@ class PopUp extends React.Component {
 
   handleChange(event) {
     const { name, value } = event.target;
+    console.log(value, 'value');
     let errors = this.state.errors;
-    switch (name) {
-      case 'add-value':
-        errors.checkValue = value.length < 5 ? 'Full Name must be 5 characters long!' : '';
-        break;
-      default:
-        break;
+    if (this.props.configType === 'locationList') {
+      switch (name) {
+        case 'add-value':
+          if (value.length < 5) {
+            errors.checkValue = 'Location number must be 5 characters long!';
+          } else if (value.length > 5) {
+            errors.checkValue = 'Location number can not be more than 5 characters long!';
+          } else {
+            errors.checkValue = '';
+          }
+
+          break;
+        case 'edit-value':
+          if (value.length < 5) {
+            errors.checkValue = 'Location number must be 5 characters long!';
+          } else if (value.length > 5) {
+            errors.checkValue = 'Location number can not be more than 5 characters long!';
+          } else {
+            errors.checkValue = '';
+          }
+
+          break;
+        default:
+          break;
+      }
+    } else {
+      errors.checkValue = '';
     }
+
     this.setState({ errors, value: event.target.value });
   }
 
@@ -52,6 +77,29 @@ class PopUp extends React.Component {
     this.props.closePopup(false);
   }
 
+  getInputByType() {
+    if (this.props.configType === 'locationList' || this.props.configType === 'integer') {
+      return (
+        <input type="number" name="edit-value" defaultValue={this.props.selectedConfigValue}
+          className="input-field" noValidate onChange={this.handleChange}/>
+      );
+    } else if (this.props.configType === 'boolean') {
+      return (
+        <RadioGroup style={{ flexDirection: 'row' }} name="boolean-value"
+          defaultValue={this.props.selectedConfigValue}
+          onChange={this.handleChange} className="boolean-radio">
+          <Radio color="primary" className='popup-radio' style={{ flex: 1 }} value="True" />True
+          <Radio color="primary" className='popup-radio' style={{ flex: 1 }} value="False" />False
+        </RadioGroup>
+      );
+    } else {
+      return (
+        <input type="text" name="edit-value" defaultValue={this.props.selectedConfigValue}
+          className="input-field" noValidate onChange={this.handleChange}/>
+      );
+    }
+  }
+
   typeOfPopupOpen() {
     const { errors } = this.state;
     if (this.props.type === 'isAdd') {
@@ -65,18 +113,12 @@ class PopUp extends React.Component {
               <form onSubmit={this.handleSubmit} className="form-container" noValidate>
                 <label className="field-label">
                   Enter Value:
-                  <input type="text" name="add-value" className="input-field"
-                    noValidate onChange={this.handleChange} />
-                  {errors.checkValue.length > 0 ?
-                  <span className='error'>{errors.checkValue}</span> :
-                  <span className='error-placeholder'></span>}
                 </label>
-                <label className="field-label">
-                  Commit Message (Optional):
-                  <input type="text" name="add-msg" className="commit-msg-field"
-                    noValidate onChange={this.handleChange} />
-                </label>
-                <input disabled={!this.state.value} type="submit"
+                <input type="number" name="add-value" className="input-field"
+                  noValidate onChange={this.handleChange}/>
+                {errors.checkValue.length > 0 &&
+                  <span className='error'>{errors.checkValue}</span>}
+                <input disabled={!this.state.value || errors.checkValue.length > 0} type="submit"
                   className="submit-button" value="Add"/>
               </form>
             </div>
@@ -88,25 +130,17 @@ class PopUp extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <div className="popup-header">
-              Edit Product<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+              Edit Value<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="add-value-field">
               <form onSubmit={this.handleSubmit} className="form-container" noValidate>
                 <label className="field-label">
                   Edit Value:
-                  <input type="text" name="edit-value"
-                    defaultValue={this.props.selectedConfigValue}
-                    className="input-field" noValidate onChange={this.handleChange}/>
-                    {errors.checkValue.length > 0 ?
-                  <span className='error'>{errors.checkValue}</span> :
-                  <span className='error-placeholder'></span>}
                 </label>
-                <label className="field-label">
-                  Commit Message (Optional):
-                  <input type="text" name="add-msg" className="commit-msg-field"
-                    noValidate onChange={this.handleChange} />
-                </label>
-                <input disabled={!this.state.value} type="submit"
+                {this.getInputByType()}
+                  {errors.checkValue.length > 0 &&
+                    <span className='error'>{errors.checkValue}</span>}
+                <input disabled={!this.state.value || errors.checkValue.length > 0} type="submit"
                   className="submit-button" value="Edit"/>
               </form>
             </div>
@@ -116,11 +150,11 @@ class PopUp extends React.Component {
     } else if (this.props.type === 'isRemove') {
       return (
         <div className='popup'>
-            <div className='popup_inner'>
-              <div className="popup-header">
-                Remove Item<IoIosClose className="close-icon" onClick={this.props.closePopup}/>
-              </div>
-              <div className="remove-message">
+          <div className='popup_inner'>
+            <div className="popup-header">
+              Remove Value<IoIosClose className="close-icon" onClick={this.props.closePopup} />
+            </div>
+            <div className="remove-message">
                 Are you sure you want to remove {this.props.selectedConfigValue}?
                 <form className="form-container">
                   <label className="field-label">
@@ -134,7 +168,7 @@ class PopUp extends React.Component {
                   <button className="button" onClick={this.props.closePopup}>No</button>
                 </div>
               </div>
-            </div>
+          </div>
         </div>
       );
     }
