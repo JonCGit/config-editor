@@ -50,8 +50,15 @@ class Page extends React.Component {
     // TODO: replace the branch name and commit message with user inputs
     this.state.repository.writeFile(
       configData.name.toLowerCase(), 'config.json', encoded, 'test commit 64', options, (err, contents) => {
-        console.log(contents, 'contents');
-        this.handleEnvChange(configData);
+        this.setState({ loading: true });
+        this.state.repository.getContents(
+            configData.name.toLowerCase(), 'config.json', false, (err, contents) => {
+                this.setState({
+                    env: JSON.parse(atob(contents.content)),
+                    loading: false,
+                });
+            }
+        );
       }
     );
   };
@@ -63,7 +70,7 @@ class Page extends React.Component {
 
   handleEnvChange = input => {
     console.log(input.name, 'Selected Env');
-    this.setState({ loading: true });
+    this.setState({ loading: true, selectedConfig: {}});
     this.state.repository.getContents(
       input.name.toLowerCase(), 'config.json', false, (err, contents) => {
         this.setState({
