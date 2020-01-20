@@ -9,12 +9,14 @@ class PopUp extends React.Component {
     super(props);
     this.state = {
       value: '',
+      commitMsg: '',
       errors: {
         checkValue: '',
       },
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleMsg = this.handleMsg.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onRemoveValueClicked = this.onRemoveValueClicked.bind(this);
   }
@@ -64,9 +66,14 @@ class PopUp extends React.Component {
     this.setState({ errors, value: event.target.value });
   }
 
+  handleMsg(event) {
+    console.log(event.target.value);
+    this.setState({ commitMsg: event.target.value });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    this.props.callbackFromParent(this.state.value);
+    this.props.callbackFromParent(this.state.value, this.state.commitMsg);
     if (this.state.value) {
       this.props.closePopup(false);
     }
@@ -110,10 +117,13 @@ class PopUp extends React.Component {
                 <label className="field-label">
                   Enter Value:
                 </label>
-                  <input type="number" name="add-value" className="input-field"
-                    noValidate onChange={this.handleChange}/>
-                  {errors.checkValue.length > 0 &&
-                    <span className='error'>{errors.checkValue}</span>}
+                <input type="number" name="add-value" className="input-field" noValidate onChange={this.handleChange}/>
+                {errors.checkValue.length > 0 &&
+                  <span className='error'>{errors.checkValue}</span>}
+                <label className="field-label">
+                  Commit Message (Optional):
+                </label>
+                <input type="text" name="add-msg" className="commit-msg-field" noValidate onChange={this.handleMsg} />
                 <input disabled={!this.state.value || errors.checkValue.length > 0} type="submit"
                   className="submit-button" value="Add"/>
               </form>
@@ -134,8 +144,11 @@ class PopUp extends React.Component {
                   Edit Value:
                 </label>
                 {this.getInputByType()}
-                  {errors.checkValue.length > 0 &&
-                    <span className='error'>{errors.checkValue}</span>}
+                {errors.checkValue.length > 0 && <span className='error'>{errors.checkValue}</span>}
+                <label className="field-label">
+                  Commit Message (Optional):
+                </label>
+                <input type="text" name="add-msg" className="commit-msg-field" noValidate onChange={this.handleMsg} />
                 <input disabled={!this.state.value || errors.checkValue.length > 0} type="submit"
                   className="submit-button" value="Edit"/>
               </form>
@@ -151,12 +164,19 @@ class PopUp extends React.Component {
               Remove<IoIosClose className="close-icon" onClick={this.props.closePopup} />
             </div>
             <div className="remove-message">
-              Are you sure you want to remove {this.props.selectedConfigValue}?
-              <div className="row remove-buttons">
-                <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
-                <button className="button" onClick={this.props.closePopup}>No</button>
+                Are you sure you want to remove {this.props.selectedConfigValue}?
+                <form>
+                  <label className="field-label">
+                    Commit Message (Optional):
+                    <input type="text" name="add-msg" className="commit-msg-field"
+                      noValidate onChange={this.handleMsg} />
+                  </label>
+                </form>
+                <div className="row remove-buttons">
+                  <button className="button" onClick={this.onRemoveValueClicked}>Yes</button>
+                  <button className="button" onClick={this.props.closePopup}>No</button>
+                </div>
               </div>
-            </div>
           </div>
         </div>
       );

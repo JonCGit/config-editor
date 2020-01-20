@@ -35,7 +35,7 @@ class Page extends React.Component {
     });
   }
 
-  updateConfig = configData => {
+  updateConfig = (configData, commitMsg) => {
     console.log(configData, 'data');
     const base64json = require('base64json');
 
@@ -49,7 +49,7 @@ class Page extends React.Component {
 
     // TODO: replace the branch name and commit message with user inputs
     this.state.repository.writeFile(
-      configData.name.toLowerCase(), 'config.json', encoded, 'test commit 64', options, (err, contents) => {
+      configData.name.toLowerCase(), 'config.json', encoded, commitMsg, options, (err, contents) => {
         this.setState({ loading: true });
         this.state.repository.getContents(
             configData.name.toLowerCase(), 'config.json', false, (err, contents) => {
@@ -64,7 +64,7 @@ class Page extends React.Component {
   };
 
   handleFeatFlagChange = value => {
-    console.log(value, 'Selected config');
+    // console.log(value, 'Selected config');
     this.setState({ selectedConfig: value });
   };
 
@@ -81,7 +81,7 @@ class Page extends React.Component {
     );
   };
 
-  featFlagCallback(newConfig, oldValue, valueType) {
+  featFlagCallback(newConfig, commitMsg, oldValue, valueType) {
     if (valueType === 'isArray' && oldValue) {
       this.setState((prevState) => {
         const indexOfOldValue = prevState.selectedConfig.configValue.indexOf(oldValue);
@@ -90,7 +90,7 @@ class Page extends React.Component {
           selectedConfig: prevState.selectedConfig,
         };
       }, () => {
-        this.updateConfig(this.state.env);
+        this.updateConfig(this.state.env, commitMsg);
       });
     } else if (valueType === 'isNotArray') {
       this.setState((prevState) => {
@@ -99,7 +99,7 @@ class Page extends React.Component {
           selectedConfig: prevState.selectedConfig,
         };
       }, () => {
-        this.updateConfig(this.state.env);
+        this.updateConfig(this.state.env, commitMsg);
       });
     } else {
       this.setState((prevState) => {
@@ -108,7 +108,7 @@ class Page extends React.Component {
           selectedConfig: prevState.selectedConfig,
         };
       }, () => {
-        this.updateConfig(this.state.env);
+        this.updateConfig(this.state.env, commitMsg);
       });
     }
   }

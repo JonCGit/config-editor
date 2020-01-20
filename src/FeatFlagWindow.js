@@ -44,12 +44,12 @@ class FeatFlagWindow extends React.Component {
     const arrayOrString = this.props.selectedConfig.configValue;
     if (Array.isArray(arrayOrString)) {
       return this.props.selectedConfig.configValue.map(options =>
-        <FormControlLabel
+        (<FormControlLabel
           key={options}
           value={options}
           control={<Radio color="primary" />}
           label={options}
-        />
+        />)
       );
     } else {
       return (
@@ -63,19 +63,20 @@ class FeatFlagWindow extends React.Component {
     }
   }
 
-  myCallback(dataFromPopUp) {
+  myCallback(valueFromPopUp, commitMsg) {
     if (this.state.selectedConfigValue && this.props.selectedConfig.configType === 'locationList') {
-      this.props.callbackFromFeatFlag(dataFromPopUp, this.state.selectedConfigValue, 'isArray');
+      this.props.callbackFromFeatFlag(valueFromPopUp, commitMsg, this.state.selectedConfigValue, 'isArray');
       this.setState({
         selectedConfigValue: '',
       });
-    } else if (this.state.selectedConfigValue && this.props.selectedConfig.configType !== 'locationList') {
-      this.props.callbackFromFeatFlag(dataFromPopUp, this.state.selectedConfigValue, 'isNotArray');
+    } else if (this.state.selectedConfigValue &&
+      this.props.selectedConfig.configType !== 'locationList') {
+      this.props.callbackFromFeatFlag(valueFromPopUp, commitMsg, this.state.selectedConfigValue, 'isNotArray');
       this.setState({
         selectedConfigValue: '',
       });
     } else {
-      this.props.callbackFromFeatFlag(dataFromPopUp, null, null);
+      this.props.callbackFromFeatFlag(valueFromPopUp, commitMsg, null, null);
     }
   }
 
@@ -91,16 +92,16 @@ class FeatFlagWindow extends React.Component {
       <FormControl component="fieldset">
         <RadioGroup value={this.state.selectedConfigValue} onChange={this.handleChange}>
           {this.props.selectedConfig.configValue ?
-              this.renderSwitch() : null
+            this.renderSwitch() : null
           }
         </RadioGroup>
       </FormControl>
-
     );
     return (
       <div className="display-window">
         {this.state.showPopup
-          ? <PopUp selectedConfigValue={this.state.selectedConfigValue} configType={this.props.selectedConfig.configType} type={this.state.type}
+          ? <PopUp selectedConfigValue={this.state.selectedConfigValue}
+            configType={this.props.selectedConfig.configType} type={this.state.type}
           callbackFromParent={this.myCallback} removedValueFromPopup={this.removeCallBack}
           closePopup={() => this.togglePopup('close')}/> : null
         }
@@ -122,7 +123,8 @@ class FeatFlagWindow extends React.Component {
               disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue}
               className="button" onClick={() => this.togglePopup('isEdit')}>Edit</button>
             <button
-              disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue || this.props.selectedConfig.configType !== 'locationList'}
+              disabled={!this.props.selectedConfig.configValue || !this.state.selectedConfigValue ||
+                this.props.selectedConfig.configType !== 'locationList'}
               className="button" onClick={() => this.togglePopup('isRemove')}>Remove</button>
           </div>
         </div>
