@@ -17,7 +17,7 @@ class EnvSearch extends React.Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row env-search">
         <div>
           Environment:
           <select className='env-select' onChange={this.handleChange}>
