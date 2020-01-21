@@ -80,8 +80,8 @@ class FeatFlagWindow extends React.Component {
     }
   }
 
-  removeCallBack(selectedValue) {
-    this.props.getSelectedRemovedValue(selectedValue);
+  removeCallBack(selectedValue, commitMsg) {
+    this.props.getSelectedRemovedValue(selectedValue, commitMsg);
     this.setState({
       selectedConfigValue: '',
     });

@@ -80,7 +80,7 @@ class PopUp extends React.Component {
   }
 
   onRemoveValueClicked() {
-    this.props.removedValueFromPopup(this.props.selectedConfigValue);
+    this.props.removedValueFromPopup(this.props.selectedConfigValue, this.state.commitMsg);
     this.props.closePopup(false);
   }
 

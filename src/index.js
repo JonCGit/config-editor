@@ -112,7 +112,7 @@ class Page extends React.Component {
     }
   }
 
-  selectedRemovedValue(selected) {
+  selectedRemovedValue(selected, commitMsg) {
     this.setState((prevState) => {
       const indexOfSelectedValue = prevState.selectedConfig.configValue.indexOf(selected);
       prevState.selectedConfig.configValue.splice(indexOfSelectedValue, 1);
@@ -120,7 +120,7 @@ class Page extends React.Component {
         selectedConfig: prevState.selectedConfig,
       };
     }, () => {
-      this.updateConfig(this.state.env);
+      this.updateConfig(this.state.env, commitMsg);
     });
   }
 
