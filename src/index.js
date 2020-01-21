@@ -64,7 +64,6 @@ class Page extends React.Component {
   };
 
   handleFeatFlagChange = value => {
-    // console.log(value, 'Selected config');
     this.setState({ selectedConfig: value });
   };
 
