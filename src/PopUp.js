@@ -67,7 +67,7 @@ class PopUp extends React.Component {
   }
 
   handleMsg(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({ commitMsg: event.target.value });
   }
 
@@ -120,7 +120,7 @@ class PopUp extends React.Component {
                 <input type="number" name="add-value" className="input-field" noValidate onChange={this.handleChange}/>
                 {errors.checkValue.length > 0 &&
                   <span className='error'>{errors.checkValue}</span>}
-                <label className="field-label">
+                <label className="field-label msg-label">
                   Commit Message (Optional):
                 </label>
                 <input type="text" name="add-msg" className="commit-msg-field" noValidate onChange={this.handleMsg} />
@@ -145,7 +145,7 @@ class PopUp extends React.Component {
                 </label>
                 {this.getInputByType()}
                 {errors.checkValue.length > 0 && <span className='error'>{errors.checkValue}</span>}
-                <label className="field-label">
+                <label className="field-label msg-label">
                   Commit Message (Optional):
                 </label>
                 <input type="text" name="add-msg" className="commit-msg-field" noValidate onChange={this.handleMsg} />
@@ -166,7 +166,7 @@ class PopUp extends React.Component {
             <div className="remove-message">
                 Are you sure you want to remove {this.props.selectedConfigValue}?
                 <form>
-                  <label className="field-label">
+                  <label className="field-label msg-label">
                     Commit Message (Optional):
                     <input type="text" name="add-msg" className="commit-msg-field"
                       noValidate onChange={this.handleMsg} />

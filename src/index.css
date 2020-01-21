@@ -7,6 +7,10 @@ ol, ul {
   padding-left: 30px;
 }
 
+.env-search {
+  padding-left: 10px;
+}
+
 .env-window, .env-display > div, .feature-display > div {
   padding: 5px;
 }
@@ -137,6 +141,10 @@ button:disabled, input[type='submit']:disabled {
 
 .commit-msg-field {
   width: 97%;
+}
+
+.msg-label {
+  padding-top: 5px;
 }
 
 .field-label {
