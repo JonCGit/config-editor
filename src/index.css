@@ -7,7 +7,7 @@ ol, ul {
   padding-left: 30px;
 }
 
-.env-search {
+.pl-10 {
   padding-left: 10px;
 }
 
@@ -194,7 +194,7 @@ button:disabled, input[type='submit']:disabled {
   width: 50%;
 }
 
-.env-select {
+.option-select {
 	display: block;
 	font-size: 16px;
 	font-family: sans-serif;

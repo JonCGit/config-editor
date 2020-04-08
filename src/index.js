@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import RepoSearch from './RepoSearch';
 import EnvSearch from './EnvSearch.js';
 import EnvWindow from './EnvWindow.js';
 import FeatFlagWindow from './FeatFlagWindow.js';
@@ -11,6 +12,8 @@ class Page extends React.Component {
     super(props);
     this.state = {
       repository: null,
+      selectedFile: "",
+      repoFiles: [],
       env: null,
       selectedConfig: {
         configValue: null,
@@ -19,21 +22,66 @@ class Page extends React.Component {
     };
     this.featFlagCallback = this.featFlagCallback.bind(this);
     this.selectedRemovedValue = this.selectedRemovedValue.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
+  }
 
+  componentDidMount() {
     let gh = new GitHub({
       username: 'JonCGit',
       password: 'Hackathon123',
     });
     const repo = gh.getRepo('JonCGit', 'config-project');
-
-    repo.getContents('development', 'config.json', false, (err, contents) => {
-      this.setState({
-        repository: repo,
-        env: JSON.parse(atob(contents.content)),
-        loading: false,
-      });
+    repo.getContents('development', './', false, (error, response) => {
+      if (error) {
+        console.log(error);
+      } else {
+        var fileNames = [];
+        response.forEach((file, i) => {
+          fileNames.push(file.name);
+        });
+        console.log(fileNames);
+        let selectedFile = response[0].name;
+        repo.getContents('development', selectedFile, false, (err, contents) => {
+          this.setState({
+            repoFiles: fileNames,
+            selectedFile: selectedFile,
+            repository: repo,
+            env: JSON.parse(atob(contents.content)),
+            loading: false,
+          });
+        });
+      }
     });
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedFile !== this.state.selectedFile) {
+      // TODO: Error Handle in case of malformed filename
+      let beginExtension = this.state.selectedFile.lastIndexOf(".");
+      var fileExtension = this.state.selectedFile.substring(beginExtension+1);
+      // TODO: List accepted File Types in ./config.json filter accepted file types
+      if (fileExtension.toLowerCase() === "json") {
+        this.state.repository.getContents('development', this.state.selectedFile, false, (error, contents) => {
+          this.setState({
+            env: JSON.parse(atob(contents.content)),
+            loading: false,
+          });
+        });
+      } else {
+        // TODO: handle parsing of other file types
+      }
+    }
+  }
+
+  handleFileChange = (input) => {
+    console.log(input, 'Selected File');
+    this.setState((state) => {
+      return {
+        selectedFile: input,
+        loading: true,
+      };
+    });
+  };
 
   updateConfig = (configData, commitMsg) => {
     console.log(configData, 'data');
@@ -127,7 +175,10 @@ class Page extends React.Component {
   render() {
     return (
       <div className="page">
-        <EnvSearch handleEnvChange={this.handleEnvChange} />
+        <div className="row">
+          <RepoSearch handleFileChange={this.handleFileChange} repoFiles={this.state.repoFiles} />
+          <EnvSearch handleEnvChange={this.handleEnvChange} />
+        </div>
         <div className="row">
           <div className="env-window">
             <EnvWindow handleFeatFlagChange={this.handleFeatFlagChange} env={this.state.env}

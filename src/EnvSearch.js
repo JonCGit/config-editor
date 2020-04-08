@@ -17,10 +17,10 @@ class EnvSearch extends React.Component {
 
   render() {
     return (
-      <div className="row env-search">
+      <div className="pl-10">
         <div>
           Environment:
-          <select className='env-select' onChange={this.handleChange}>
+          <select className='option-select' onChange={this.handleChange}>
             {ConfigJson.map((env, index) =>
               <option key={index} value={index}>{env.name}</option>
             )}
