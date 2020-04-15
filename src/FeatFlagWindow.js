@@ -64,6 +64,7 @@ class FeatFlagWindow extends React.Component {
   }
 
   myCallback(valueFromPopUp, commitMsg) {
+    console.log(this.props.selectedConfig);
     if (this.state.selectedConfigValue && this.props.selectedConfig.configType === 'locationList') {
       this.props.callbackFromFeatFlag(valueFromPopUp, commitMsg, this.state.selectedConfigValue, 'isArray');
       this.setState({

@@ -47,7 +47,7 @@ class EnvWindow extends React.Component {
     this.props.handleFeatFlagChange(value);
   }
 
-  render() {
+  renderTable() {
     const conditionalRowStyles = [
       {
         when: row => row === this.props.selectedConfig,
@@ -59,34 +59,59 @@ class EnvWindow extends React.Component {
         },
       },
     ];
+    if (this.props.fileType === "json"){
+      const table = (
+        <div className="env-window-body">
+          {this.props.env.configGroups.map((group, index) =>
+              <DataTable
+                key={index}
+                title={group.groupName}
+                columns={columns}
+                data={group.configs}
+                customStyles={customStyles}
+                defaultSortField="configItemId"
+                highlightOnHover
+                pointerOnHover
+                onRowClicked={this.handleFeatFlagChange}
+                onSelectedRowsChange={this.handleFeatFlagChange}
+                conditionalRowStyles={conditionalRowStyles}
+              />
+            )}
+        </div>
+      );
+      return table;
+    } else if (this.props.fileType === "properties") {
+      const table = Object.keys(this.props.env).map((varKey, index) => {
+        return (
+          <DataTable
+            key={index}
+            title={varKey}
+            columns={[{name: varKey, sortable: false, selector: "selectorKey"}]}
+            data={[{selectorKey: varKey}]}
+            customStyles={customStyles}
+            defaultSortField="selectorKey"
+            highlightOnHover
+            pointerOnHover
+            onRowClicked={console.log("implement on click!")}
+            onSelectedRowsChange={console.log("implement me!")}
+            conditionalRowStyles={conditionalRowStyles}
+          />
+        );
+      })
+      return table;
+    }
+    return <div> Sorry, an error occurred </div>;
+  }
 
+  render() {
     return (
       <div className="display-window">
-        {this.props.loading &&
-          <CircularProgress />
-        }
-        {!this.props.loading &&
-          <div>
-            <div className="window-title">{this.props.env.name}</div>
-            <div className="env-window-body">
-            {this.props.env.configGroups.map((group, index) =>
-                <DataTable
-                  key={index}
-                  title={group.groupName}
-                  columns={columns}
-                  data={group.configs}
-                  customStyles={customStyles}
-                  defaultSortField="configItemId"
-                  highlightOnHover
-                  pointerOnHover
-                  onRowClicked={this.handleFeatFlagChange}
-                  onSelectedRowsChange={this.handleFeatFlagChange}
-                  conditionalRowStyles={conditionalRowStyles}
-                />
-              )}
-              </div>
-          </div>
-        }
+        {this.props.loading && <CircularProgress />}
+        <div>
+          {(this.props.fileType === "json") ? <div className="window-title">{this.props.env.name}</div> : <div className="window-title"> Development </div>}
+
+          <div className="window-title"> {this.renderTable()} </div>
+        </div>
       </div>
     );
   }
