@@ -1,7 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Azure Pipelines POC
 
 trigger:
 - master
@@ -17,3 +14,33 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+# - task: GitHubComment@0
+#   inputs:
+#     gitHubConnection: 'GitHub'
+#     repositoryName: 'microsoft/AI-First-Development'
+
+- script: |
+    # Create a new issue in the microsoft/AI-First-Development repository
+    ISSUE_URL=$(gh issue create \
+      --repo microsoft/AI-First-Development \
+      --title "Automated Issue from Azure Pipeline - $(Build.BuildNumber)" \
+      --body "This issue was automatically created by Azure Pipeline build $(Build.BuildNumber) on $(date)
+
+    Build ID: $(Build.BuildId)
+    Build Reason: $(Build.Reason)
+    Source Branch: $(Build.SourceBranch)
+    Commit: $(Build.SourceVersion)")
+
+    # Extract issue number from URL
+    ISSUE_NUMBER=$(echo $ISSUE_URL | grep -oP '\d+$')
+
+    echo "Created issue #$ISSUE_NUMBER: $ISSUE_URL"
+
+    # Assign to GitHub Copilot (using the copilot bot username)
+    gh issue edit $ISSUE_NUMBER \
+      --repo microsoft/AI-First-Development \
+      --add-assignee "copilot"
+
+    echo "Issue assigned to GitHub Copilot"
+  displayName: 'Create GitHub Issue and Assign to Copilot'
