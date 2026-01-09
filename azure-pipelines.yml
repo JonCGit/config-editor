@@ -15,12 +15,6 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: InstallSSHKey@0
-  inputs:
-    knownHostsEntry: 'github.com'
-    sshKeySecureFile: 'id_rsa'
-  condition: false  # Placeholder - remove if using SSH
-
 - task: PowerShell@2
   displayName: 'Create GitHub Issue and Assign to Copilot'
   inputs:
