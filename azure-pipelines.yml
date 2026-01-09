@@ -15,32 +15,44 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: GitHubComment@0
+- task: InstallSSHKey@0
   inputs:
-    gitHubConnection: 'JonCGit'
-    repositoryName: 'JonCGit/config-editor'
+    knownHostsEntry: 'github.com'
+    sshKeySecureFile: 'id_rsa'
+  condition: false  # Placeholder - remove if using SSH
 
-- script: |
-    # Create a new issue in the microsoft/AI-First-Development repository
-    ISSUE_URL=$(gh issue create \
-      --repo microsoft/AI-First-Development \
-      --title "Automated Issue from Azure Pipeline - $(Build.BuildNumber)" \
-      --body "This issue was automatically created by Azure Pipeline build $(Build.BuildNumber) on $(date)
-
-    Build ID: $(Build.BuildId)
-    Build Reason: $(Build.Reason)
-    Source Branch: $(Build.SourceBranch)
-    Commit: $(Build.SourceVersion)")
-
-    # Extract issue number from URL
-    ISSUE_NUMBER=$(echo $ISSUE_URL | grep -oP '\d+$')
-
-    echo "Created issue #$ISSUE_NUMBER: $ISSUE_URL"
-
-    # Assign to GitHub Copilot (using the copilot bot username)
-    gh issue edit $ISSUE_NUMBER \
-      --repo microsoft/AI-First-Development \
-      --add-assignee "copilot"
-
-    echo "Issue assigned to GitHub Copilot"
+- task: PowerShell@2
   displayName: 'Create GitHub Issue and Assign to Copilot'
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Get token from service connection
+      $serviceConnection = "JonCGit"
+      
+      # Use the GitHub CLI with the service connection token
+      $env:GH_TOKEN = "$(JonCGit_Token)"
+      
+      # Create a new issue in the microsoft/AI-First-Development repository
+      $issueUrl = gh issue create `
+        --repo microsoft/AI-First-Development `
+        --title "Automated Issue from Azure Pipeline - $(Build.BuildNumber)" `
+        --body "This issue was automatically created by Azure Pipeline build $(Build.BuildNumber) on $(Get-Date)
+      
+      Build ID: $(Build.BuildId)
+      Build Reason: $(Build.Reason)
+      Source Branch: $(Build.SourceBranch)
+      Commit: $(Build.SourceVersion)"
+      
+      # Extract issue number from URL
+      $issueNumber = $issueUrl -replace '.*/', ''
+      
+      Write-Host "Created issue #$issueNumber: $issueUrl"
+      
+      # Assign to GitHub Copilot (using the copilot bot username)
+      gh issue edit $issueNumber `
+        --repo microsoft/AI-First-Development `
+        --add-assignee "copilot"
+      
+      Write-Host "Issue assigned to GitHub Copilot"
+  env:
+    JonCGit_Token: $(JonCGit)
