@@ -40,8 +40,8 @@ steps:
       # Extract issue number from URL
       $issueNumber = $issueUrl -replace '.*/', ''
       
-      Write-Host "Created issue #$issueNumber: $issueUrl"
-      
+      Write-Host "Created issue #${issueNumber}: $issueUrl"
+
       # Assign to GitHub Copilot (using the copilot bot username)
       gh issue edit $issueNumber `
         --repo microsoft/AI-First-Development `
