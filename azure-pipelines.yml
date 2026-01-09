@@ -24,7 +24,7 @@ steps:
       $serviceConnection = "JonCGit"
       
       # Use the GitHub CLI with the service connection token
-      $env:GH_TOKEN = "$(JonCGit_Token)"
+      $env:GH_TOKEN = $env:JonCGit_Token
       
       # Create a new issue in the microsoft/AI-First-Development repository
       $issueUrl = gh issue create `
