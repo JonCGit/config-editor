@@ -21,10 +21,10 @@ steps:
     targetType: 'inline'
     script: |
       # Get token from service connection
-      $serviceConnection = "JonCGit"
+      $serviceConnection = "Proxima-POC"
       
       # Use the GitHub CLI with the service connection token
-      $env:GH_TOKEN = $env:JonCGit_Token
+      $env:GH_TOKEN = $env:Proxima_POC_Token
       
       # Create a new issue in the microsoft/AI-First-Development repository
       $issueUrl = gh issue create `
@@ -41,7 +41,7 @@ steps:
       $issueNumber = $issueUrl -replace '.*/', ''
       
       Write-Host "Created issue #${issueNumber}: $issueUrl"
-
+      
       # Assign to GitHub Copilot (using the copilot bot username)
       gh issue edit $issueNumber `
         --repo microsoft/AI-First-Development `
@@ -49,4 +49,4 @@ steps:
       
       Write-Host "Issue assigned to GitHub Copilot"
   env:
-    JonCGit_Token: $(JonCGit)
+    Proxima_POC_Token: $(Proxima-POC)
