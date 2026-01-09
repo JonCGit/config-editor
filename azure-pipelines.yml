@@ -15,10 +15,10 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-# - task: GitHubComment@0
-#   inputs:
-#     gitHubConnection: 'GitHub'
-#     repositoryName: 'microsoft/AI-First-Development'
+- task: GitHubComment@0
+  inputs:
+    gitHubConnection: 'JonCGit'
+    repositoryName: 'JonCGit/config-editor'
 
 - script: |
     # Create a new issue in the microsoft/AI-First-Development repository
