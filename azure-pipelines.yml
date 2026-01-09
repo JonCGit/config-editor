@@ -20,15 +20,9 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      # Get token from service connection
-      $serviceConnection = "Proxima-POC"
-      
-      # Use the GitHub CLI with the service connection token
-      $env:GH_TOKEN = $env:Proxima_POC_Token
-      
       # Create a new issue in the microsoft/AI-First-Development repository
       $issueUrl = gh issue create `
-        --repo microsoft/AI-First-Development `
+        --repo JonCGit/proxima-test `
         --title "Automated Issue from Azure Pipeline - $(Build.BuildNumber)" `
         --body "This issue was automatically created by Azure Pipeline build $(Build.BuildNumber) on $(Get-Date)
       
@@ -44,9 +38,7 @@ steps:
       
       # Assign to GitHub Copilot (using the copilot bot username)
       gh issue edit $issueNumber `
-        --repo microsoft/AI-First-Development `
+        --repo JonCGit/proxima-test `
         --add-assignee "copilot"
       
       Write-Host "Issue assigned to GitHub Copilot"
-  env:
-    Proxima_POC_Token: $(Proxima-POC)
