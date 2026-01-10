@@ -37,10 +37,10 @@ class PopUp extends React.Component {
     if (this.props.configType === 'locationList') {
       switch (name) {
         case 'add-value':
-          if (value.length < 5) {
-            errors.checkValue = 'Location number must be 5 characters long!';
-          } else if (value.length > 5) {
-            errors.checkValue = 'Location number can not be more than 5 characters long!';
+          if (value.length < 10) {
+            errors.checkValue = 'Location number must be 10 characters long!';
+          } else if (value.length > 10) {
+            errors.checkValue = 'Location number can not be more than 10 characters long!';
           } else {
             errors.checkValue = '';
           }
